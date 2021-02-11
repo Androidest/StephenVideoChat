@@ -8,7 +8,7 @@ function App() {
 	const [response, setResponse] = useState("");
 
 	useEffect(() => {
-		const socket = io('39.98.118.62');
+		const socket = io('http://39.98.118.62');
 		socket.on("FromAPI", data => {
 			setResponse(data);
 			socket.emit("test", 'FUCK!');
