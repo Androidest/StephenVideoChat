@@ -1,23 +1,22 @@
 {
   "files": {
-    "main.css": "/StephenVideoChat/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/StephenVideoChat/static/js/main.206a19e0.chunk.js",
-    "main.js.map": "/StephenVideoChat/static/js/main.206a19e0.chunk.js.map",
-    "runtime-main.js": "/StephenVideoChat/static/js/runtime-main.79f920b3.js",
-    "runtime-main.js.map": "/StephenVideoChat/static/js/runtime-main.79f920b3.js.map",
-    "static/js/2.dbe52958.chunk.js": "/StephenVideoChat/static/js/2.dbe52958.chunk.js",
-    "static/js/2.dbe52958.chunk.js.map": "/StephenVideoChat/static/js/2.dbe52958.chunk.js.map",
-    "static/js/3.d72756ad.chunk.js": "/StephenVideoChat/static/js/3.d72756ad.chunk.js",
-    "static/js/3.d72756ad.chunk.js.map": "/StephenVideoChat/static/js/3.d72756ad.chunk.js.map",
+    "main.css": "/StephenVideoChat/static/css/main.ea1455b2.chunk.css",
+    "main.js": "/StephenVideoChat/static/js/main.dc863a85.chunk.js",
+    "main.js.map": "/StephenVideoChat/static/js/main.dc863a85.chunk.js.map",
+    "runtime-main.js": "/StephenVideoChat/static/js/runtime-main.2f9279a5.js",
+    "runtime-main.js.map": "/StephenVideoChat/static/js/runtime-main.2f9279a5.js.map",
+    "static/js/2.eba2acd7.chunk.js": "/StephenVideoChat/static/js/2.eba2acd7.chunk.js",
+    "static/js/2.eba2acd7.chunk.js.map": "/StephenVideoChat/static/js/2.eba2acd7.chunk.js.map",
+    "static/js/3.6d313bb8.chunk.js": "/StephenVideoChat/static/js/3.6d313bb8.chunk.js",
+    "static/js/3.6d313bb8.chunk.js.map": "/StephenVideoChat/static/js/3.6d313bb8.chunk.js.map",
     "index.html": "/StephenVideoChat/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/StephenVideoChat/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.dbe52958.chunk.js.LICENSE.txt": "/StephenVideoChat/static/js/2.dbe52958.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/StephenVideoChat/static/media/logo.6ce24c58.svg"
+    "static/css/main.ea1455b2.chunk.css.map": "/StephenVideoChat/static/css/main.ea1455b2.chunk.css.map",
+    "static/js/2.eba2acd7.chunk.js.LICENSE.txt": "/StephenVideoChat/static/js/2.eba2acd7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.79f920b3.js",
-    "static/js/2.dbe52958.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.206a19e0.chunk.js"
+    "static/js/runtime-main.2f9279a5.js",
+    "static/js/2.eba2acd7.chunk.js",
+    "static/css/main.ea1455b2.chunk.css",
+    "static/js/main.dc863a85.chunk.js"
   ]
 }
