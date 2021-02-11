@@ -3,7 +3,7 @@ npm install gh-pages --save-dev
 
 # ============== add to package.json ===============
 {
-    "homepage": "https://github.com/Androidest/StephenVideoChat.git",
+    "homepage": "https://Androidest.github.io/StephenVideoChat"
     "name": "react-video-chat",
     "version": "0.1.0",
 
@@ -24,8 +24,8 @@ npm install gh-pages --save-dev
 
 git init
 
-# add remote origin with ssh github link
-git remote add origin git@github.com:Androidest/StephenVideoChat.git
+# add remote origin with https github link
+git remote add origin https://github.com/Androidest/StephenVideoChat.git
 
 # make changes to the project & commit & push
 git add .

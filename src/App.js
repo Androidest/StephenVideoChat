@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import io from 'socket.io-client';
+import Peer from 'peerjs';
+import { useEffect, useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	const [response, setResponse] = useState("");
+
+	useEffect(() => {
+		const socket = io('https://39.98.118.62:443');
+		socket.on("FromAPI", data => {
+			setResponse(data);
+			socket.emit("test", 'FUCK!');
+    	});
+	}, []);
+
+  	return (
+ 		<p>
+      		It's <time dateTime={response}>{response}</time>
+    	</p>
+	);
 }
 
 export default App;
