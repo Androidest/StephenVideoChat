@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/Androidest/StephenVideoChat.git/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/Androidest/StephenVideoChat.git/static/js/main.206a19e0.chunk.js",
-    "main.js.map": "/Androidest/StephenVideoChat.git/static/js/main.206a19e0.chunk.js.map",
-    "runtime-main.js": "/Androidest/StephenVideoChat.git/static/js/runtime-main.d4daf09c.js",
-    "runtime-main.js.map": "/Androidest/StephenVideoChat.git/static/js/runtime-main.d4daf09c.js.map",
-    "static/js/2.dbe52958.chunk.js": "/Androidest/StephenVideoChat.git/static/js/2.dbe52958.chunk.js",
-    "static/js/2.dbe52958.chunk.js.map": "/Androidest/StephenVideoChat.git/static/js/2.dbe52958.chunk.js.map",
-    "static/js/3.d72756ad.chunk.js": "/Androidest/StephenVideoChat.git/static/js/3.d72756ad.chunk.js",
-    "static/js/3.d72756ad.chunk.js.map": "/Androidest/StephenVideoChat.git/static/js/3.d72756ad.chunk.js.map",
-    "index.html": "/Androidest/StephenVideoChat.git/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/Androidest/StephenVideoChat.git/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.dbe52958.chunk.js.LICENSE.txt": "/Androidest/StephenVideoChat.git/static/js/2.dbe52958.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/Androidest/StephenVideoChat.git/static/media/logo.6ce24c58.svg"
+    "main.css": "/StephenVideoChat/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/StephenVideoChat/static/js/main.206a19e0.chunk.js",
+    "main.js.map": "/StephenVideoChat/static/js/main.206a19e0.chunk.js.map",
+    "runtime-main.js": "/StephenVideoChat/static/js/runtime-main.79f920b3.js",
+    "runtime-main.js.map": "/StephenVideoChat/static/js/runtime-main.79f920b3.js.map",
+    "static/js/2.dbe52958.chunk.js": "/StephenVideoChat/static/js/2.dbe52958.chunk.js",
+    "static/js/2.dbe52958.chunk.js.map": "/StephenVideoChat/static/js/2.dbe52958.chunk.js.map",
+    "static/js/3.d72756ad.chunk.js": "/StephenVideoChat/static/js/3.d72756ad.chunk.js",
+    "static/js/3.d72756ad.chunk.js.map": "/StephenVideoChat/static/js/3.d72756ad.chunk.js.map",
+    "index.html": "/StephenVideoChat/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/StephenVideoChat/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.dbe52958.chunk.js.LICENSE.txt": "/StephenVideoChat/static/js/2.dbe52958.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/StephenVideoChat/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d4daf09c.js",
+    "static/js/runtime-main.79f920b3.js",
     "static/js/2.dbe52958.chunk.js",
     "static/css/main.8c8b27cf.chunk.css",
     "static/js/main.206a19e0.chunk.js"
