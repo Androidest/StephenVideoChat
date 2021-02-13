@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 function App() {
 
   	return (
- 		<p>
-      		Hello World!
-    	</p>
+ 		<div className="App">
+      		<WebCam></WebCam>
+    	</div>
 	);
 }
 
