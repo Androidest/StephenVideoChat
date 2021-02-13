@@ -1,23 +1,13 @@
 import './App.css';
-import io from 'socket.io-client';
-import Peer from 'peerjs';
+import * as tf from '@tensorflow/tfjs'
+import * as WebCam from 'react-webcam' 
 import { useEffect, useState } from 'react';
 
 function App() {
 
-	const [response, setResponse] = useState("");
-
-	useEffect(() => {
-		const socket = io('http://39.98.118.62');
-		socket.on("FromAPI", data => {
-			setResponse(data);
-			socket.emit("test", 'FUCK!');
-    	});
-	}, []);
-
   	return (
  		<p>
-      		It's <time dateTime={response}>{response}</time>
+      		Hello World!
     	</p>
 	);
 }

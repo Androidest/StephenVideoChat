@@ -3,8 +3,8 @@ npm install gh-pages --save-dev
 
 # ============== add to package.json ===============
 {
-    "homepage": "https://Androidest.github.io/StephenVideoChat"
-    "name": "react-video-chat",
+    "homepage": "https://Androidest.github.io/react-tensor-app"
+    "name": "react-tensor-app",
     "version": "0.1.0",
 
     //..............
@@ -25,7 +25,7 @@ npm install gh-pages --save-dev
 git init
 
 # add remote origin with https github link
-git remote add origin https://github.com/Androidest/StephenVideoChat.git
+git remote add origin https://github.com/Androidest/react-tensor-app.git
 
 # make changes to the project & commit & push
 git add .
