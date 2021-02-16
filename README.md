@@ -18,7 +18,7 @@ npm install gh-pages --save-dev
     //..............
 }
 
-# ================ git settings ============
+# ================ git settings =============
 # create a new repository
 # initialize the existing project
 
