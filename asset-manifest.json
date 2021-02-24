@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/react-tensor-app/static/js/main.116e8e30.chunk.js",
-    "main.js.map": "/react-tensor-app/static/js/main.116e8e30.chunk.js.map",
-    "runtime-main.js": "/react-tensor-app/static/js/runtime-main.367ee900.js",
-    "runtime-main.js.map": "/react-tensor-app/static/js/runtime-main.367ee900.js.map",
-    "static/js/2.ab539819.chunk.js": "/react-tensor-app/static/js/2.ab539819.chunk.js",
-    "static/js/2.ab539819.chunk.js.map": "/react-tensor-app/static/js/2.ab539819.chunk.js.map",
-    "static/js/3.1b76a57a.chunk.js": "/react-tensor-app/static/js/3.1b76a57a.chunk.js",
-    "static/js/3.1b76a57a.chunk.js.map": "/react-tensor-app/static/js/3.1b76a57a.chunk.js.map",
+    "main.js": "/react-tensor-app/static/js/main.a26fa39a.chunk.js",
+    "main.js.map": "/react-tensor-app/static/js/main.a26fa39a.chunk.js.map",
+    "runtime-main.js": "/react-tensor-app/static/js/runtime-main.54d61ee5.js",
+    "runtime-main.js.map": "/react-tensor-app/static/js/runtime-main.54d61ee5.js.map",
+    "static/js/2.1e5ddff3.chunk.js": "/react-tensor-app/static/js/2.1e5ddff3.chunk.js",
+    "static/js/2.1e5ddff3.chunk.js.map": "/react-tensor-app/static/js/2.1e5ddff3.chunk.js.map",
+    "static/js/3.8ce54d76.chunk.js": "/react-tensor-app/static/js/3.8ce54d76.chunk.js",
+    "static/js/3.8ce54d76.chunk.js.map": "/react-tensor-app/static/js/3.8ce54d76.chunk.js.map",
     "index.html": "/react-tensor-app/index.html",
-    "static/js/2.ab539819.chunk.js.LICENSE.txt": "/react-tensor-app/static/js/2.ab539819.chunk.js.LICENSE.txt"
+    "static/js/2.1e5ddff3.chunk.js.LICENSE.txt": "/react-tensor-app/static/js/2.1e5ddff3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.367ee900.js",
-    "static/js/2.ab539819.chunk.js",
-    "static/js/main.116e8e30.chunk.js"
+    "static/js/runtime-main.54d61ee5.js",
+    "static/js/2.1e5ddff3.chunk.js",
+    "static/js/main.a26fa39a.chunk.js"
   ]
 }
