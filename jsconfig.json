@@ -1,6 +1,16 @@
 {
     "compilerOptions": {
-      "baseUrl": "src"
+      "baseUrl": "src",
+      "plugins": [
+        {
+          "name": "typescript-styled-plugin",
+          "tags": [
+            "styled",
+            "css",
+            "sty"
+          ]
+        }
+      ]
     },
     "include": ["src"]
 }

@@ -19,4 +19,6 @@ import "firebase/analytics";
     firebase.analytics();
 }
 
-export default firebase;
+export const db = firebase;
+export const dbAuth = firebase.auth();
+export const dbStore = firebase.firestore();
