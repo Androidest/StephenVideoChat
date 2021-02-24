@@ -35,6 +35,8 @@ export default function Login() {
 	)
 }
 
+
+//======================= style ==========================
 const InvitationCode = styled.input.attrs(()=>({
     type:'password',
     placeholder:'PASSWORD'

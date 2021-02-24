@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-const { dbAuth } = require("./Database");
+import { createContext, useContext, useEffect, useState } from "react";
+const { dbAuth } = require("./FBase");
 
 // ====== 自定义用户验证 context 对象 =============
 const authContext = createContext(null);
@@ -9,7 +9,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [isInit, setInit] = useState(false); //可以知道是否正在自动登录
 
-    useState(()=>{
+    useEffect(()=>{
         // 手动登入登出成功后，或启动时自动登录成功后，都会进来一次
         dbAuth.onAuthStateChanged((user)=>{
             if(user) {
@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
             } else {
                 setUser(null);
             }
-            setInit(true);
+            setInit(true); //若上次登出了，下次启动时onAuthStateChanged立刻出发，并且user为null
         })
     },[])
 
