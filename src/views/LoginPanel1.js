@@ -1,20 +1,23 @@
-import { useAuth } from "modules/Auth";
-import { useEffect, useState } from "react";
-import { Css } from "modules/SharedStyle";
+import { useAuth } from "providers/AuthProvider";
+import { Css } from "commons/SharedStyle";
 import styled from "styled-components";
 import { useHistory, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useChatUser } from "providers/ChatUserProvider";
 
-export default function Login() {
+export default function LoginPanel1() {
 	const auth = useAuth();
+    const cUser = useChatUser();
     const { state:{from} } = useLocation();
     const history = useHistory();
     const [password, setPassword] = useState('');
     const [isError, setError] = useState(false);
 
-	const login = async ()=>{
+	const onClick = async ()=>{
 		const isSuccess = await auth.login('stephen@invited.com', password);
 
         if(isSuccess){
+            cUser.setReady(true);
             history.replace(from);
         }else {
             setError(true);
@@ -27,11 +30,11 @@ export default function Login() {
     }
 
 	return (
-		<Div>
+        <>
             <InvitationCode value={password} onChange={onChange} />
-            <Button onClick={login}> LOGIN </Button>
-			{isError && 'Wrong Invitation Code!'}
-		</Div>
+            <Button onClick={onClick}> LOGIN </Button>
+            {isError && 'Wrong Invitation Code!'}
+        </>
 	)
 }
 
@@ -39,41 +42,32 @@ export default function Login() {
 //======================= style ==========================
 const InvitationCode = styled.input.attrs(()=>({
     type:'password',
-    placeholder:'PASSWORD'
+    placeholder:'INVITATION CODE'
 }))`
-    height: 40px;
-	width: 200px;
-    color: black;
+    height: 6ch;
+	width: 30ch;
+    margin: 1.5ch;
+    color: #2c2c4e;
     background-color: white;
+    border-radius: 4ch;
+    border: none;
+    text-align: center;
 
-    border-radius: 25px;
-    border-color: white;
-    border-width: 1px;
-    border: solid;
-
-    ${Css.flex_col.vert.center}
-	${Css.flex_col.horz.center}
+    :focus{
+        outline: none;
+    }
 `;
 
+//#53c6b1
 const Button = styled.button `
-    height: 40px;
-	width: 200px;
+    height: 6ch;
+	width: 30ch;
+    margin: 1.5ch;
     color: white;
-    background-color: #abaae6;
-
-    border-radius: 25px;
-    border-color: white;
-    border-width: 1px;
-    border: solid;
+    background-color: #53c6b1;
+    border-radius: 4ch;
+    border: none;
 
     ${Css.flex_col.vert.center}
-	${Css.flex_col.horz.center}
-`;
-
-const Div = styled.div `
-	height: 400px;
-	width: 100%;
-	background-color: lightblue;
-	${Css.flex_col.vert.center}
 	${Css.flex_col.horz.center}
 `;

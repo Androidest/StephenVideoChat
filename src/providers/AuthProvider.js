@@ -1,5 +1,17 @@
+//AuthProvider 用于允许登入者拥有访问服务器的权限，使用一个特定账号登录，并非社交用户。
+//社交用户请看ChatUserProvider
 import { createContext, useContext, useEffect, useState } from "react";
-const { dbAuth } = require("./FBase");
+import { AES } from "crypto-js";
+import { dbAuth } from "../commons/FBase";
+const { encrypt:ec, decrypt:dc} = AES;
+
+//========= models ================
+function reCreateUser(user) {
+    const { id } = user;
+    const enc = (msg)=> ec(msg, id);
+    const dec = (msg)=> dc(msg, id);
+    return { enc, dec };
+}
 
 // ====== 自定义用户验证 context 对象 =============
 const authContext = createContext(null);
@@ -13,7 +25,7 @@ export function AuthProvider({ children }) {
         // 手动登入登出成功后，或启动时自动登录成功后，都会进来一次
         dbAuth.onAuthStateChanged((user)=>{
             if(user) {
-                setUser(user);
+                setUser(reCreateUser(user));
             } else {
                 setUser(null);
             }

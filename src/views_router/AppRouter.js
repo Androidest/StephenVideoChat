@@ -1,15 +1,22 @@
-import { useAuth } from "modules/Auth";
-import { Css } from "modules/SharedStyle";
-import { useEffect } from "react";
+import { useAuth } from "providers/AuthProvider";
+import { useChatUser } from "providers/ChatUserProvider";
+import { Css } from "commons/SharedStyle";
 import { BrowserRouter, Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { GROUPCHAT, HOME, LOGIN, PROFILE } from "./Constant";
 import GroupChat from "./GroupChat";
 import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
 
 
+//================ constants =========================
+export const LOGIN = '/login';
+export const HOME = '/';
+export const GROUPCHAT = '/groupchat';
+export const PROFILE = '/profile';
+
+
+//================ default route components =========================
 function DefaultRoute({ redirectPath }) {
     const location = useLocation();
     return (
@@ -19,14 +26,17 @@ function DefaultRoute({ redirectPath }) {
     );
 }
 
+
+//================ default App Route =========================
 export default function AppRouter() {
     const auth = useAuth();
+    const cUser = useChatUser();
 
     return (
         <>
-        {auth.isInit ? (
+        {auth.isInit ? ( //判断是否在自动登录
             <BrowserRouter>
-                { auth.user ? (
+                { (auth.user && cUser.isReady) ? (
                     <>
                     <Navigation>
                         <NavButton to={HOME}>Home</NavButton>

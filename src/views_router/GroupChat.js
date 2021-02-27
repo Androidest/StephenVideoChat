@@ -1,9 +1,8 @@
-import { useAuth } from "modules/Auth";
-import { useEffect } from "react";
-import { Css } from "modules/SharedStyle";
+import { useAuth } from "providers/AuthProvider";
+import { Css } from "commons/SharedStyle";
 import styled from "styled-components";
 
-export default function Profile() {
+export default function GroupChat() {
 	const auth = useAuth();
 
 	return (
@@ -16,7 +15,7 @@ export default function Profile() {
 const Div = styled.div `
 	height: 400px;
 	width: 100%;
-	background-color: lightseagreen;
+	background-color: lightcyan;
 	${Css.flex_col.vert.in_out_space}
 	${Css.flex_col.horz.left}
 `
