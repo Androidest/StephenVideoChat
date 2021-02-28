@@ -1,7 +1,7 @@
 import { useAuth } from "providers/AuthProvider";
 import { useChatUser } from "providers/ChatUserProvider";
 import { Css } from "commons/SharedStyle";
-import { BrowserRouter, Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { HashRouter, Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import GroupChat from "./GroupChat";
 import Home from "./Home";
@@ -35,7 +35,7 @@ export default function AppRouter() {
     return (
         <>
         {auth.isInit ? ( //判断是否在自动登录
-            <BrowserRouter>
+            <HashRouter>
                 { (auth.user && cUser.isReady) ? (
                     <>
                     <Navigation>
@@ -58,7 +58,7 @@ export default function AppRouter() {
                         <DefaultRoute redirectPath={LOGIN}/>
                     </Switch>
                 )}
-            </BrowserRouter>
+            </HashRouter>
         ) : (
             <span>'initializing'</span>
         )}
