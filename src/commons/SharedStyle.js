@@ -54,6 +54,41 @@ export const Css = {
             stretch : css `align-items:stretch;`
         }
     },
+
+    hover_blink: {
+        forward: css `
+            :after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 100%;
+                background-color: rgba(255,255,255,0.4);
+                -webkit-transition: none;
+                -moz-transition: none;
+                transition: none;
+                border-radius: 6ch;
+            }
+
+            :hover:after {
+                width: 120%;
+                background-color: rgba(255,255,255,0);
+                -webkit-transition: all 1s ease-in-out;
+                -moz-transition: all 1s ease-in-out;
+                transition: all 1s ease-in-out;
+            }
+        `,
+
+        backward: css `
+            :not(:hover):after {
+            width: 0;
+            background-color: rgba(255,255,255,0.4);
+            -webkit-transition: all 0.5s ease-out;
+            -moz-transition: all 0.5s ease-out;
+            transition: all 0.5s ease-out;
+        }`
+    },
 }
 
 

@@ -42,8 +42,10 @@ export function AuthProvider({ children }) {
             return Promise.resolve(true);  //提示登入成功，登录界面可以知道什么时候redirect
         }
         catch(e){
-            return Promise.resolve(false); //提示登入失败，登录界面可以知道密码对不对
+            const error = new Error();
+            console.warn(error.stack);
         }
+        return Promise.resolve(false); //提示登入失败，登录界面可以知道密码对不对
     }
 
     //==== 手动登出 ====

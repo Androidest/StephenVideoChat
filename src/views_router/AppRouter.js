@@ -7,6 +7,7 @@ import GroupChat from "./GroupChat";
 import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
+import LoadingAnim from "views/LoadingAnim";
 
 
 //================ constants =========================
@@ -60,7 +61,7 @@ export default function AppRouter() {
                 )}
             </HashRouter>
         ) : (
-            <span>'initializing'</span>
+            <BigLodingAnim/>
         )}
         </>
     );
@@ -68,6 +69,10 @@ export default function AppRouter() {
 
 
 //======================= style ==========================
+const BigLodingAnim = styled(LoadingAnim) `
+    width: 30ch;
+`
+
 const NavButton = styled(Link) `
     width: 170px;
     height: 50px;

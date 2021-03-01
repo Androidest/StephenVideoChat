@@ -1,7 +1,7 @@
 import { useSpring, animated } from 'react-spring';
 import styled, { css } from "styled-components";
 import { Css } from 'commons/SharedStyle';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 import Blue from "assets/blue_planet.svg";
 import Cyan from "assets/cyan_planet.svg";
@@ -15,18 +15,20 @@ import Star from "assets/star.svg";
 
 
 function Panel({x, y, slowDown, springProps, children}) {
-    const trans = useCallback( (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px,0)` );
+    const trans = (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px,0)`;
+    const style = { transform: springProps.xy.interpolate(trans) };
     return (
-        <PanelDiv style={{ transform: springProps.xy.interpolate(trans) }}>
+        <PanelDiv style={style}>
             {children}
         </PanelDiv>
     );
 }
 
 function Planet({svg, x, y, w, slowDown, springProps}) {
-    const trans = useCallback( (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px, 0)` );
+    const trans = (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px, 0)`;
+    const style = { width:`${w}ch`, transform: springProps.xy.interpolate(trans) };
     return (
-        <Img src={svg} style={{ width:`${w}ch`, transform: springProps.xy.interpolate(trans) }} />
+        <Img src={svg} style={style} />
     );
 }
 
@@ -89,6 +91,7 @@ const StarImg = styled.img `
 const PanelDiv = styled(animated.div) `
     height: 48ch;
     width: 45ch;
+	overflow: hidden;
     border-radius: 4ch;
     background-color: rgba(255, 255, 255, 0.2);
     -webkit-backdrop-filter: blur(10px);
