@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.js": "/react-tensor-app/static/js/main.b89dde5b.chunk.js",
-    "main.js.map": "/react-tensor-app/static/js/main.b89dde5b.chunk.js.map",
-    "runtime-main.js": "/react-tensor-app/static/js/runtime-main.e0e1b7fc.js",
-    "runtime-main.js.map": "/react-tensor-app/static/js/runtime-main.e0e1b7fc.js.map",
-    "static/js/2.2b4c5ec1.chunk.js": "/react-tensor-app/static/js/2.2b4c5ec1.chunk.js",
-    "static/js/2.2b4c5ec1.chunk.js.map": "/react-tensor-app/static/js/2.2b4c5ec1.chunk.js.map",
-    "static/js/3.80a5bdd8.chunk.js": "/react-tensor-app/static/js/3.80a5bdd8.chunk.js",
-    "static/js/3.80a5bdd8.chunk.js.map": "/react-tensor-app/static/js/3.80a5bdd8.chunk.js.map",
+    "main.js": "/react-tensor-app/static/js/main.56bac4a2.chunk.js",
+    "main.js.map": "/react-tensor-app/static/js/main.56bac4a2.chunk.js.map",
+    "runtime-main.js": "/react-tensor-app/static/js/runtime-main.e5a491e8.js",
+    "runtime-main.js.map": "/react-tensor-app/static/js/runtime-main.e5a491e8.js.map",
+    "static/js/2.033f275a.chunk.js": "/react-tensor-app/static/js/2.033f275a.chunk.js",
+    "static/js/2.033f275a.chunk.js.map": "/react-tensor-app/static/js/2.033f275a.chunk.js.map",
+    "static/js/3.07b100bb.chunk.js": "/react-tensor-app/static/js/3.07b100bb.chunk.js",
+    "static/js/3.07b100bb.chunk.js.map": "/react-tensor-app/static/js/3.07b100bb.chunk.js.map",
     "index.html": "/react-tensor-app/index.html",
-    "static/js/2.2b4c5ec1.chunk.js.LICENSE.txt": "/react-tensor-app/static/js/2.2b4c5ec1.chunk.js.LICENSE.txt",
+    "static/js/2.033f275a.chunk.js.LICENSE.txt": "/react-tensor-app/static/js/2.033f275a.chunk.js.LICENSE.txt",
     "static/media/blue_planet.13ad91ff.svg": "/react-tensor-app/static/media/blue_planet.13ad91ff.svg",
     "static/media/cyan_planet.f7f5fde8.svg": "/react-tensor-app/static/media/cyan_planet.f7f5fde8.svg",
     "static/media/earth.5820ba12.svg": "/react-tensor-app/static/media/earth.5820ba12.svg",
     "static/media/jupiter.2a74c919.svg": "/react-tensor-app/static/media/jupiter.2a74c919.svg",
+    "static/media/loading.13f33801.svg": "/react-tensor-app/static/media/loading.13f33801.svg",
     "static/media/moon.fe14d20b.svg": "/react-tensor-app/static/media/moon.fe14d20b.svg",
     "static/media/orange_planet.bbf32967.svg": "/react-tensor-app/static/media/orange_planet.bbf32967.svg",
     "static/media/red_planet.3a0827a7.svg": "/react-tensor-app/static/media/red_planet.3a0827a7.svg",
@@ -21,8 +22,8 @@
     "static/media/star.3c47846d.svg": "/react-tensor-app/static/media/star.3c47846d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e0e1b7fc.js",
-    "static/js/2.2b4c5ec1.chunk.js",
-    "static/js/main.b89dde5b.chunk.js"
+    "static/js/runtime-main.e5a491e8.js",
+    "static/js/2.033f275a.chunk.js",
+    "static/js/main.56bac4a2.chunk.js"
   ]
 }
