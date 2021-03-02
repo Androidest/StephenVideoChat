@@ -3,11 +3,14 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import BounceButton from "./BounceButton";
 import { animated } from "react-spring";
-import { useShake } from "commons/SharedAnim";
+import { useShakeAnim } from "commons/SharedAnim";
 import LoadingAnim from "views/LoadingAnim";
 
+//=================== 邀请码输入框 ===========================
 function InvitationCode({reference, style, ...rest}) {
-    const [animStyle, triggerShaking] = useShake(i=>`translate3d(${i*2}ch, 0, 0)`);
+    //使用抖动效果，使x方向抖动，幅度为 2ch
+    const [animStyle, triggerShaking] = useShakeAnim(i=>`translate3d(${i*2}ch, 0, 0)`); 
+    //用于将抖动触发函数通过 reference 传第到组件外部
     reference.current = { triggerShaking };
 
     return (
@@ -20,26 +23,28 @@ function InvitationCode({reference, style, ...rest}) {
 }
 
 export default function LoginPanel1() {
-	const auth = useAuth();
-    const inputRef = useRef();
+	const auth = useAuth(); //用于获得登录函数 auth.login();
+    const inputRef = useRef(); //输入框引用，用于在外部调用输入框内部的抖动函数 inputRef.current.triggerShaking()
     const [password, setPassword] = useState('');
     const [isError, setError] = useState(false);
     const [isLoading, setLoading] = useState(false);
 
 	const onClick = async ()=>{
+        //防止正在登录验证时点击Login按钮
         if(isLoading) 
             return;
 
-        setLoading(true);
-        const isSuccess = await auth.login('stephen@invited.com', password);
-        setLoading(false);
+        setLoading(true); //开始显示 loading 动画
+        const isSuccess = await auth.login('stephen@invited.com', password); //等待登录成功
+        setLoading(false);  //结束 loading 动画
 
         if(!isSuccess) {
             setError(true);
-            inputRef.current.triggerShaking();
+            inputRef.current.triggerShaking(); //出发输入框抖动效果
         } 
 	};
 
+    //输入的东西显示到输入框
     const onChange = (e)=> {
         setPassword(e.target.value);
         setError(false);

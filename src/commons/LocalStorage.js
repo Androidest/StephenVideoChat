@@ -1,3 +1,4 @@
+//使用 localStorage 的便捷hook
 import { useState } from "react";
 
 /**
@@ -16,9 +17,11 @@ export function useLocalStorage(key, initialValue, isClearHistory) {
         try {
             const item = window.localStorage.getItem(key);  //local storage 存储序列化形式的对象 (json string)
             if(item) {
+                //localStorage 有数据的时候
                 return JSON.parse(item);
             }
             else {
+                //localStorage 上没有数据的时候，创建新的记录，使用初始默认数据
                 window.localStorage.setItem(key, JSON.stringify(initialValue));
                 return initialValue;
             }

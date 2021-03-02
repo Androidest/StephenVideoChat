@@ -1,3 +1,4 @@
+//通用Style
 import styled, { createGlobalStyle, css } from "styled-components"
 
 //############### Styled #############################################################################
@@ -19,6 +20,7 @@ const flex_col = css `
 `;
 
 export const Css = {
+    //简化 flex的使用
     //==================== flex row =====================
     flex_row: {
         horz: {
@@ -36,7 +38,7 @@ export const Css = {
             stretch : css `align-items:stretch;`
         }
     },
-
+    //简化 flex的使用
     //==================== flex col =====================
     flex_col: {
         vert: {
@@ -55,7 +57,9 @@ export const Css = {
         }
     },
 
+    //========== css transition 闪光动画 =============
     hover_blink: {
+        //从往右的闪光效果
         forward: css `
             :after {
                 content: '';
@@ -70,7 +74,7 @@ export const Css = {
                 transition: none;
                 border-radius: 6ch;
             }
-
+            
             :hover:after {
                 width: 120%;
                 background-color: rgba(255,255,255,0);
@@ -79,7 +83,7 @@ export const Css = {
                 transition: all 1s ease-in-out;
             }
         `,
-
+        //效果往回缩
         backward: css `
             :not(:hover):after {
             width: 0;

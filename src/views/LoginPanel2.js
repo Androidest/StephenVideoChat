@@ -3,14 +3,14 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import BounceButton from "./BounceButton";
 import { animated } from "react-spring";
-import { useShake } from "commons/SharedAnim";
+import { useShakeAnim } from "commons/SharedAnim";
 import LoadingAnim from "views/LoadingAnim";
 import { useHistory, useLocation } from "react-router-dom";
 import { HOME } from "views_router/AppRouter";
 
 
 function UserName({reference, style, ...rest}) {
-    const [animStyle, triggerShaking] = useShake(i=>`translate3d(${i*2}ch, 0, 0)`);
+    const [animStyle, triggerShaking] = useShakeAnim(i=>`translate3d(${i*2}ch, 0, 0)`);
     reference.current = { triggerShaking };
 
     return (

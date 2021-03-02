@@ -1,3 +1,4 @@
+// Google Firebase 初始化和模块导出
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";

@@ -1,15 +1,15 @@
-import { callbacks } from '@tensorflow/tfjs';
-import { useCallback, useRef, useState } from 'react';
+//通用特定的动画hook
+import { useRef, useState } from 'react';
 import { useSpring } from 'react-spring';
 
-//===================== useScaleBounce ======================
+//===================== useScaleAnim ======================
 /**
- * @description useScaleBounce 弹动动画hook
+ * @description useScaleAnim 使用弹动动画
  * @param {number} initScale - 初始scale
  * @param {object} config - （可选）spring 的 config 物理参数  
- * @return {[style:object, setScale:function, set:function]}
+ * @return {[style:object, setScale:function]} [style, setScale], setScale 为 async 函数, 动画结束时 resolve
  */
-export function useScaleBounce(initScale, config) {
+export function useScaleAnim(initScale, config) {
 	const [props, set] = useSpring(()=>({ 
 		scale: initScale, 
 		config: config || { mass: 1, tension: 370, friction: 10 }
@@ -19,11 +19,15 @@ export function useScaleBounce(initScale, config) {
 
 	const setScale = (newScale, config)=>{
 		return new Promise((resolve, reject)=>{
-			set({ 
+			const props = { 
 				scale: newScale, 
 				onRest: resolve,    //当spring那边通过onRest调用resolve时，执行此参数的then回调，也可以await
-				config: config || { mass: 1, tension: 370, friction: 10 }
-			});
+			};
+
+			if(config) {
+				props.config = config;
+			}
+			set(props);
 		});
 	};
 
@@ -32,12 +36,12 @@ export function useScaleBounce(initScale, config) {
 
 //===================== useHorzShake ======================
 /**
- * @description useShake 弹动动画hook
+ * @description useShakeAnim 弹动动画hook
  * @param {number} transformFunc - 如 i=>`translate3d(${i}px, 0, 0)`, x∈[0,1]
  * @param {object} config - （可选）spring 的 config 物理参数  
- * @return {[style:object, setScale:function]}
+ * @return {[style:object, trigger:function]}
  */
-export function useShake(transformFunc, config) {
+export function useShakeAnim(transformFunc, config) {
 	const state = useRef(false);
 	const [props, set] = useSpring(()=>({ 
 		percentage: 0,
@@ -51,8 +55,13 @@ export function useShake(transformFunc, config) {
 	};
 
 	const trigger = ()=>{
-		state.current = !state.current;
-		set({ percentage: state.current? 1:0 });
+		return new Promise((resolve, reject)=>{
+			state.current = !state.current;
+			set({ 
+				percentage: state.current? 1:0,
+				onRest: resolve,    //当spring那边通过onRest调用resolve时，执行此参数的then回调，也可以await
+			});
+		});
 	};
 
 	return [style, trigger];

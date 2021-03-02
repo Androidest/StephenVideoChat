@@ -1,19 +1,19 @@
-import { useScaleBounce } from "commons/SharedAnim";
+import { useScaleAnim } from "commons/SharedAnim";
 import { Css } from "commons/SharedStyle";
 import { animated } from "react-spring";
 import styled from "styled-components";
 
 export default function BounceButton({className, children, onMouseDown, onMouseUp, ...rest}) {
-    const [style, setScale] = useScaleBounce(1);
+    const [style, setScale] = useScaleAnim(1); //使用缩放效果，用默认的弹动设置
 
     const newOnMouseDown = ()=> {
-        setScale(0.9);
-        onMouseDown && onMouseDown();
+        setScale(0.9); //按下时缩小
+        onMouseDown && onMouseDown(); //合并外部传第的onMouseDown()
     };
 
     const newOnMouseUp = ()=> {
-        setScale(1);
-        onMouseUp && onMouseUp();
+        setScale(1); //放开时回到原来大小
+        onMouseUp && onMouseUp(); //合并外部传第的onMouseDown()
     };
 
     return (
@@ -42,6 +42,7 @@ const Button = styled(animated.button) `
     ${Css.flex_col.vert.center}
 	${Css.flex_col.horz.center}
 
+    /* 从左往右的闪光效果， css transition 动画 */
     ${Css.hover_blink.forward}
 	${Css.hover_blink.backward}
 

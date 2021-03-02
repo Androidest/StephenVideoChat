@@ -9,7 +9,7 @@ import { DEFAULT_PHOTO } from 'commons/constants';
 // ================== models ===================
 const isClearHistory = false;
 const initMe = {
-    uuid: v4(),
+    uuid: v4(), //随机ID
     name: "MyName",
     photoUrl: DEFAULT_PHOTO 
 };

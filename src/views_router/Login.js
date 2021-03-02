@@ -5,58 +5,43 @@ import styled from "styled-components";
 import LoginSpace from "views/LoginSpace";
 import LoginPanel1 from "views/LoginPanel1";
 import LoginPanel2 from "views/LoginPanel2";
-import { animated } from "react-spring";
-import { useScaleBounce } from "commons/SharedAnim";
 import { useEffect, useRef, useState } from "react";
+import PopupContainer from "views/PopupContainer";
 
-function PopupContainer({reference, children}) {
-	const [style, setScale] = useScaleBounce(0);
-	
-	reference.current = { 
-		popup: ()=>setScale(1, { mass: 1, tension: 370, friction: 10 }),  //bounce physics config
-		hide: ()=>setScale(0, { mass: 1, tension: 400, friction: 35 })  //no bounce physics config
-	};
-
-	return (
-		<PopupDiv style={style}>
-			{children}
-		</PopupDiv>
-	);
-}
 
 export default function Login() {
 	const auth = useAuth();
     const cUser = useChatUser();
-	const popupRef = useRef(null);
-	const [panelID, setPanelID] = useState(1);
+	const popupRef = useRef(null);  //PopupContainer的引用
+	const [panelID, setPanelID] = useState(1); //面板ID
 
 	useEffect(async ()=>{
 		if(auth.isInit) {
+			//若发生自动登录，则无需弹出第一个面板
 			if(!auth.user) {
-				await popupRef.current.popup();
+				popupRef.current.popup(300); //延时 300ms 再弹出
 			}
+			
 			else if(!cUser.isReady) {
-				await popupRef.current.hide();
-				setPanelID(2);
-				await new Promise(resolve => setTimeout(resolve, 460));
-				popupRef.current.popup();
+				await popupRef.current.hide(); //等待缩回动画结束
+				setPanelID(2); //切换到第二个面板
+				popupRef.current.popup(400); //延时 400ms 再弹出
 			}
 		}
 	},[auth.isInit, auth.user]);
 
 	return (
 		<LoginSpace>
-			<PopupContainer reference={popupRef}>
+			<Popup reference={popupRef} isShownAtStart={false}>
 				{(panelID===1) && <LoginPanel1/>}
 				{(panelID===2) && <LoginPanel2/>}
-			</PopupContainer>
+			</Popup>
 		</LoginSpace>
 	);
 }
 
-
 //======================= style ==========================
-const PopupDiv = styled(animated.div) `
+const Popup = styled(PopupContainer) `
 	width: 100%;
 	height: 100%;
 	overflow: hidden;

@@ -1,8 +1,9 @@
 import { useSpring, animated } from 'react-spring';
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Css } from 'commons/SharedStyle';
 import { useCallback, useRef } from 'react';
 
+//=========== 引入星球SVG，用 Affinity Designer 生成的 ====================
 import Blue from "assets/blue_planet.svg";
 import Cyan from "assets/cyan_planet.svg";
 import Earth from "assets/earth.svg";
@@ -13,7 +14,7 @@ import Red from "assets/red_planet.svg";
 import Ring from "assets/ring_planet.svg";
 import Star from "assets/star.svg";
 
-
+//springProps 是通过 useSpring 生成的， slowDown 数值越大跟随鼠标的速度和幅度就越小
 function Panel({x, y, slowDown, springProps, children}) {
     const trans = (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px,0)`;
     const style = { transform: springProps.xy.interpolate(trans) };
@@ -24,6 +25,7 @@ function Panel({x, y, slowDown, springProps, children}) {
     );
 }
 
+//springProps 是通过 useSpring 生成的， slowDown 数值越大跟随鼠标的速度和幅度就越小
 function Planet({svg, x, y, w, slowDown, springProps}) {
     const trans = (tx, ty) => `translate3d(${tx/slowDown + x}px, ${ty/slowDown + y}px, 0)`;
     const style = { width:`${w}ch`, transform: springProps.xy.interpolate(trans) };
@@ -32,6 +34,7 @@ function Planet({svg, x, y, w, slowDown, springProps}) {
     );
 }
 
+//============================== 太空登录界面 ============================
 export default function LoginSpace({ children }) {
     const [props, set] = useSpring(() => ({ xy: [0, 0], config: { mass: 10, tension: 600, friction: 100 } }));
     const calc = useCallback( (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2] );

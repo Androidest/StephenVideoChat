@@ -10,16 +10,17 @@ import Profile from "./Profile";
 import LoadingAnim from "views/LoadingAnim";
 
 
-//================ constants =========================
+//================ 常量，其他文件也可以访问 =========================
 export const LOGIN = '/login';
 export const HOME = '/';
 export const GROUPCHAT = '/groupchat';
 export const PROFILE = '/profile';
 
 
-//================ default route components =========================
+//================ 在 Switch 里的默认路由路径，放在Switch里最后，当路径不存在时转到这里 =========================
 function DefaultRoute({ redirectPath }) {
-    const location = useLocation();
+    const location = useLocation(); //重定向之前记住来时的路径 location.state.from
+    //当 Switch 找不到前面的路径，任意路径 "*" 将导到这里再重定向
     return (
         <Route path='*' >
             <Redirect to={{ pathname: redirectPath, state: { from: location } }} />
@@ -37,7 +38,7 @@ export default function AppRouter() {
         <>
         {auth.isInit ? ( //判断是否在自动登录
             <HashRouter>
-                { (auth.user && cUser.isReady) ? (
+                { (auth.user && cUser.isReady) ? (  //Login 的两个界面都通过后切换成此处的路由
                     <>
                     <Navigation>
                         <NavButton to={HOME}>Home</NavButton>
