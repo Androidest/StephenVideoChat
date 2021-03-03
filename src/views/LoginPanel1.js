@@ -26,7 +26,7 @@ export default function LoginPanel1() {
 	const auth = useAuth(); //用于获得登录函数 auth.login();
     const inputRef = useRef(); //输入框引用，用于在外部调用输入框内部的抖动函数 inputRef.current.triggerShaking()
     const [password, setPassword] = useState('');
-    const [isError, setError] = useState(false);
+    const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(false);
 
 	const onClick = async ()=>{
@@ -39,22 +39,22 @@ export default function LoginPanel1() {
         setLoading(false);  //结束 loading 动画
 
         if(!isSuccess) {
-            setError(true);
-            inputRef.current.triggerShaking(); //出发输入框抖动效果
+            setError('Invalid invitation code!');
+            inputRef.current.triggerShaking(); //触发输入框抖动效果
         } 
 	};
 
     //输入的东西显示到输入框
     const onChange = (e)=> {
         setPassword(e.target.value);
-        setError(false);
+        setError(null);
     };
 
 	return (
         <>
             <InvitationCode reference={inputRef} value={password} onChange={onChange} />
             <Button onClick={onClick}> LOGIN </Button>
-            { !isLoading && isError && <ErrorMsg>{'Invalid invitation code!'}</ErrorMsg> }
+            { !isLoading && error && <ErrorMsg>{error}</ErrorMsg> }
             { isLoading && <LoadingAnim/> }
         </>
 	)
@@ -63,7 +63,8 @@ export default function LoginPanel1() {
 
 //======================= style ==========================
 const ErrorMsg = styled.p `
-    color: #bb005e;
+    color: #fad692;
+    text-shadow: 0px 0px 13px rgba(0, 0, 0, 0.5);
 `;
 
 

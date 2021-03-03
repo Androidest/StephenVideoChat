@@ -1,5 +1,4 @@
 import { useAuth } from "providers/AuthProvider";
-import { useChatUser } from "providers/ChatUserProvider";
 import { Css } from "commons/SharedStyle";
 import styled from "styled-components";
 import LoginSpace from "views/LoginSpace";
@@ -8,10 +7,8 @@ import LoginPanel2 from "views/LoginPanel2";
 import { useEffect, useRef, useState } from "react";
 import PopupContainer from "views/PopupContainer";
 
-
-export default function Login() {
+function PanelSwitcher() {
 	const auth = useAuth();
-    const cUser = useChatUser();
 	const popupRef = useRef(null);  //PopupContainer的引用
 	const [panelID, setPanelID] = useState(1); //面板ID
 
@@ -22,7 +19,7 @@ export default function Login() {
 				popupRef.current.popup(300); //延时 300ms 再弹出
 			}
 			
-			else if(!cUser.isReady) {
+			else {
 				await popupRef.current.hide(); //等待缩回动画结束
 				setPanelID(2); //切换到第二个面板
 				popupRef.current.popup(400); //延时 400ms 再弹出
@@ -31,11 +28,17 @@ export default function Login() {
 	},[auth.isInit, auth.user]);
 
 	return (
+		<Popup reference={popupRef} isShownAtStart={false}>
+			{(panelID===1) && <LoginPanel1/>}
+			{(panelID===2) && <LoginPanel2/>}
+		</Popup>
+	);
+}
+
+export default function Login() {
+	return (
 		<LoginSpace>
-			<Popup reference={popupRef} isShownAtStart={false}>
-				{(panelID===1) && <LoginPanel1/>}
-				{(panelID===2) && <LoginPanel2/>}
-			</Popup>
+			<PanelSwitcher/>
 		</LoginSpace>
 	);
 }

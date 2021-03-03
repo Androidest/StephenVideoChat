@@ -1,8 +1,9 @@
 import { useScaleAnim } from "commons/SharedAnim";
 import styled from "styled-components";
 import { animated } from "react-spring";
+import { memo } from "react";
 
-export default function PopupContainer({reference, isPopup, isShownAtStart, children, className}) {
+export default memo( function PopupContainer({reference, isPopup, isShownAtStart, children, className}) {
 	const [style, setScale] = useScaleAnim(isShownAtStart? 1 : 0); //设置初始大小
 
 	const handler = { 
@@ -40,7 +41,7 @@ export default function PopupContainer({reference, isPopup, isShownAtStart, chil
 			{children}
 		</PopupDiv>
 	);
-}
+})
 
 //======================= style ==========================
 const PopupDiv = styled(animated.div) `

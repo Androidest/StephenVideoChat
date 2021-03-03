@@ -8,6 +8,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Profile from "./Profile";
 import LoadingAnim from "views/LoadingAnim";
+import { memo } from "react";
 
 
 //================ 常量，其他文件也可以访问 =========================
@@ -28,43 +29,59 @@ function DefaultRoute({ redirectPath }) {
     );
 }
 
+// 分出LoginRouter组件并变成memo，是为了防止 useAuth().user 状态改变时，重渲染整个Login界面(包括LoginSpace)
+const LoginRouter = memo(()=> {
+    return (
+        <Switch>
+            <Route exact path={LOGIN}> <Login/> </Route>
+            <DefaultRoute redirectPath={LOGIN}/>
+        </Switch>
+    )
+})
 
-//================ default App Route =========================
+function MainRouter() {
+    const auth = useAuth();
+    return (
+        <>
+            <Navigation>
+                <NavButton to={HOME}>Home</NavButton>
+                <NavButton to={GROUPCHAT}>Group Chat</NavButton>
+                <NavButton to={PROFILE}>Profile</NavButton>
+                <button onClick={()=>auth.logout()}>sign out</button>
+            </Navigation>
+            
+            <Switch>
+                <Route exact path={HOME}> <Home/> </Route>
+                <Route exact path={GROUPCHAT}> <GroupChat/> </Route>
+                <Route exact path={PROFILE}> <Profile/>  </Route>
+                <DefaultRoute redirectPath={HOME}/>
+            </Switch>
+        </>
+    );
+}
+
+//================ App Route =========================
 export default function AppRouter() {
     const auth = useAuth();
     const cUser = useChatUser();
 
     return (
-        <>
-        {auth.isInit ? ( //判断是否在自动登录
-            <HashRouter>
-                { (auth.user && cUser.isReady) ? (  //Login 的两个界面都通过后切换成此处的路由
-                    <>
-                    <Navigation>
-                        <NavButton to={HOME}>Home</NavButton>
-                        <NavButton to={GROUPCHAT}>Group Chat</NavButton>
-                        <NavButton to={PROFILE}>Profile</NavButton>
-                        <button onClick={()=>auth.logout()}>sign out</button>
-                    </Navigation>
-                    
-                    <Switch>
-                        <Route exact path={HOME}> <Home/> </Route>
-                        <Route exact path={GROUPCHAT}> <GroupChat/> </Route>
-                        <Route exact path={PROFILE}> <Profile/>  </Route>
-                        <DefaultRoute redirectPath={HOME}/>
-                    </Switch>
-                    </>
-                ) : (
-                    <Switch>
-                        <Route exact path={LOGIN}> <Login/> </Route>
-                        <DefaultRoute redirectPath={LOGIN}/>
-                    </Switch>
-                )}
-            </HashRouter>
-        ) : (
-            <BigLodingAnim/>
-        )}
-        </>
+        <>{
+            //判断是否在自动登录
+            auth.isInit ? ( 
+                //因为后端部署在github page，无法控制路由路径，于是用HashRouter加‘#’区分前后端路由
+                <HashRouter>{ 
+                    (auth.user && cUser.isReady) ? (  
+                        //Login 的两个界面都通过后, 切换成MainRouter
+                        <MainRouter/>
+                    ) : (
+                        <LoginRouter/>
+                    )
+                }</HashRouter>
+            ) : (
+                <BigLodingAnim/>
+            )
+        }</>
     );
 }
 

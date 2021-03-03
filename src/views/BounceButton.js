@@ -1,9 +1,10 @@
 import { useScaleAnim } from "commons/SharedAnim";
 import { Css } from "commons/SharedStyle";
+import { memo } from "react";
 import { animated } from "react-spring";
 import styled from "styled-components";
 
-export default function BounceButton({className, children, onMouseDown, onMouseUp, ...rest}) {
+export default memo( function BounceButton({className, children, onMouseDown, onMouseUp, ...rest}) {
     const [style, setScale] = useScaleAnim(1); //使用缩放效果，用默认的弹动设置
 
     const newOnMouseDown = ()=> {
@@ -18,14 +19,14 @@ export default function BounceButton({className, children, onMouseDown, onMouseU
 
     return (
         <Button className = {className} 
-                        style = {style} 
-                        onMouseDown = {newOnMouseDown}
-                        onMouseUp = {newOnMouseUp}
-                        {...rest} >
+        style = {style} 
+        onMouseDown = {newOnMouseDown}
+        onMouseUp = {newOnMouseUp}
+        {...rest} >
             {children}
         </Button>
     );
-}
+})
 
 
 const Button = styled(animated.button) `

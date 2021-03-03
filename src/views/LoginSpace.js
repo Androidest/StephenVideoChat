@@ -1,7 +1,7 @@
 import { useSpring, animated } from 'react-spring';
 import styled from "styled-components";
 import { Css } from 'commons/SharedStyle';
-import { useCallback, useRef } from 'react';
+import { memo } from 'react';
 
 //=========== 引入星球SVG，用 Affinity Designer 生成的 ====================
 import Blue from "assets/blue_planet.svg";
@@ -37,7 +37,7 @@ function Planet({svg, x, y, w, slowDown, springProps}) {
 //============================== 太空登录界面 ============================
 export default function LoginSpace({ children }) {
     const [props, set] = useSpring(() => ({ xy: [0, 0], config: { mass: 10, tension: 600, friction: 100 } }));
-    const calc = useCallback( (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2] );
+    const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 
     return (
         <Container onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}>
@@ -48,7 +48,7 @@ export default function LoginSpace({ children }) {
             <StarImg src={Star} x={-400} y={200} w={2} />
             <StarImg src={Star} x={-300} y={260} w={4} />
             <StarImg src={Star} x={300} y={-50} w={4} />
-            <StarImg src={Star} x={50} y={-350} w={5} />
+            <StarImg src={Star} x={50} y={-350} w={10} />
             <StarImg src={Star} x={150} y={-330} w={2} />
 
             <Planet svg={Orange} x={550} y={-200} w={14} slowDown={52} springProps={props} />
