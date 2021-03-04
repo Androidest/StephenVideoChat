@@ -32,6 +32,13 @@ git add .
 git commit -m "Your awesome message"
 git push origin master
 
+# git add proxy & remove proxy to remote origin 
+git config --global --add remote.origin.proxy "localhost:1080"
+git config --global --add remote.origin.proxy ""
+
+# update git when unable to login
+git update-git-for-windows
+
 # deploy the project
 npm run deploy
 
