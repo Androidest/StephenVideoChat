@@ -33,6 +33,14 @@ const themContext = createContext(null);
 function MeProvider({ children }) {
     const [me, setMe] = useLocalStorage('me', initMe, isClearHistory); 
 
+    useEffect(()=>{
+        console.log(123)
+        window.addEventListener("beforeunload", (ev) => {  
+            ev.returnValue = 'Are you sure you want to close?';
+            return;
+        });
+    },[]);
+
     //fileBlob 是从 input 组件的 onChange 输入参数 event.target.files[0] 得到
     const setPhoto = (fileBlob)=>{
         //TODO add promise
