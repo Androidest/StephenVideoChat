@@ -3,10 +3,11 @@ import { useLocalStorage } from "commons/LocalStorage";
 import { createContext, useContext, useEffect, useState } from "react";
 import { v4 } from 'uuid';
 import { DEFAULT_PHOTO } from 'commons/constants';
+import { useAuth } from "./AuthProvider";
 
 
 // ================== models ===================
-const isClearHistory = false;
+const isClearHistory = false;  //测试是可以使 isClearHistory=true 重置浏览器上的记录
 const uid = v4();
 const initMe = {
     uuid: uid, //随机ID
@@ -17,7 +18,7 @@ const initMe = {
 // 开头接受任何字符：^[^]+ 
 // 一个'.'后接其中一种并以此结尾： [.]{1}(jpeg|jpg|png|gif)$
 const imageValidationRegex = /^[^]+[.]{1}(jpeg|jpg|png|gif)$/;  //imageValidationRegex.test(path) 全match才真
-const nameValidationRegex = /^([A-Z]|[a-z]|[0-9]|-){0,15}$/;
+const nameValidationRegex = /^([A-Z]|[a-z]|[0-9]|-){0,15}$/; //只接受字母、数字和减号并且字符串长度在15以内
 
 
 
@@ -48,6 +49,8 @@ function MeProvider({ children }) {
         }
     }
 
+    //设置名称时，在输入框 onChange 里使 isConfirm=false 可以边输入边防止非法输入，同时允许名称长度小于6,
+    //用在最终名称确认时，使 isConfirm=true 以防止名称长度小于6，同时保证正确的输入格式
     const setName = (newName, isConfirm)=> {
         if(nameValidationRegex.test(newName)) {
             if(isConfirm && newName.length < 6) //最终确定名字时确认是否大于等于6个字符
@@ -71,7 +74,7 @@ function MeProvider({ children }) {
     )
 }
 
-//存储其他用户的数据
+//存储其他已连接的用户的相关数据
 function ThemProvider({ children }) {
     const [them, setThem] = useState([]);
     const themValue = { them };
@@ -83,10 +86,17 @@ function ThemProvider({ children }) {
     )
 } 
 
-//用户按Start后为ready
+//用户按Start后 isReady=true
 function InitProvider({ children }) {
+    const auth = useAuth();
     const [isReady, setReady] = useState(false);
     const chatUserValue = { isReady, setReady };
+    
+    useEffect(()=>{
+        if(auth.user == null) {
+            setReady(false); //使登出后重新登录时，可以进入设置角色的开始界面（LoginPanel2）
+        }
+    }, [auth.user]); //登出时会触发
 
     return (
         <initContext.Provider value={chatUserValue}>
@@ -95,6 +105,9 @@ function InitProvider({ children }) {
     )
 } 
 
+//主provider逻辑模块， 在此将ChatUserProvider分割成三个小模块
+//是为了防止在一个 state 更新时，即使组件没有使用这个state 
+//而使用其他同 Provider 的 state 也会被连带重渲染
 export function ChatUserProvider({ children }) {
     return (
         <InitProvider> 

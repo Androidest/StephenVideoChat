@@ -1,7 +1,6 @@
 import { useSpring, animated } from 'react-spring';
 import styled from "styled-components";
 import { Css } from 'commons/SharedStyle';
-import { memo } from 'react';
 
 //=========== 引入星球SVG，用 Affinity Designer 生成的 ====================
 import Blue from "assets/blue_planet.svg";
