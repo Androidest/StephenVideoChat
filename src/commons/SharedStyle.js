@@ -93,6 +93,15 @@ export const Css = {
             transition: all 0.5s ease-out;
         }`
     },
+
+    img_protection: css `
+        ${'' /* 防止用户鼠标拖动选择出现蓝筐 */}
+        user-select: none;
+        ${'' /* 防止拖动图片 */}
+        user-drag: none;
+        ${'' /* 防止下载图片 */}
+        pointer-events: none;
+    `
 }
 
 
@@ -113,6 +122,12 @@ export const GlobalStyle = createGlobalStyle `
             sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        user-select: none; 
+        user-drag: none;
+    }
+
+    .img {
+        ${Css.img_protection}
     }
 
     code {

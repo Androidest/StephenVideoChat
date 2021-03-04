@@ -30,6 +30,7 @@ function UserPhoto({reference, src, onChange}) {
             htmlFor = {id}
             onMouseDown = {()=>{ setStyle(scaleStyle); setScale(0.85); }}
             onMouseUp = {()=>{ setStyle(scaleStyle); setScale(1); }}
+            onMouseLeave = {()=>{ setStyle(scaleStyle); setScale(1); }}
             style = {animStyle}>
                 <Img src={src} />
             </Label>
@@ -151,6 +152,7 @@ const ErrorMsg = styled.p `
 const Img = styled.img `
     height: 100%;
 	width:  100%;
+    ${Css.img_protection}
 `;
 
 const Input = styled(animated.input) `

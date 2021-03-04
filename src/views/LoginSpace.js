@@ -81,6 +81,7 @@ const Img = styled(animated.img) `
     will-change: transform;
     -webkit-filter: drop-shadow( 0px 0px 6px rgba(255, 255, 255, 0.3));
     filter: drop-shadow( 0px 0px 6px rgba(255, 255, 255, 0.3));
+    ${Css.img_protection}
 `;
 
 const StarImg = styled.img `
@@ -89,6 +90,7 @@ const StarImg = styled.img `
     transform: translate3d( ${props=>props.x}px, ${props=>props.y}px, 0);
     -webkit-filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, 0.8));
     filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, 0.8));
+    ${Css.img_protection}
 `;
 
 const PanelDiv = styled(animated.div) `

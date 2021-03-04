@@ -4,7 +4,7 @@ import { memo } from "react";
 import { animated } from "react-spring";
 import styled from "styled-components";
 
-export default memo( function BounceButton({className, children, onMouseDown, onMouseUp, ...rest}) {
+export default memo( function BounceButton({className, children, onMouseDown, onMouseUp, onMouseLeave, ...rest}) {
     const [style, setScale] = useScaleAnim(1); //使用缩放效果，用默认的弹动设置
 
     const newOnMouseDown = ()=> {
@@ -17,11 +17,17 @@ export default memo( function BounceButton({className, children, onMouseDown, on
         onMouseUp && onMouseUp(); //合并外部传第的onMouseDown()
     };
 
+    const newOnMouseLeave = ()=> {
+        setScale(1); //放开时回到原来大小
+        onMouseLeave && onMouseLeave(); //合并外部传第的onMouseDown()
+    };
+
     return (
         <Button className = {className} 
         style = {style} 
         onMouseDown = {newOnMouseDown}
         onMouseUp = {newOnMouseUp}
+        onMouseLeave = {newOnMouseLeave}
         {...rest} >
             {children}
         </Button>
