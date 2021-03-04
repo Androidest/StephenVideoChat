@@ -7,6 +7,7 @@ import LoginPanel2 from "views/LoginPanel2";
 import { useEffect, useRef, useState } from "react";
 import PopupContainer from "views/PopupContainer";
 
+//分割出来的动态组件，防止状态刷新时重渲染LoginSpace组件
 function PanelSwitcher() {
 	const auth = useAuth();
 	const popupRef = useRef(null);  //PopupContainer的引用
@@ -35,6 +36,7 @@ function PanelSwitcher() {
 	);
 }
 
+//静态组件，不受PanelSwitcher重渲染的影响
 export default function Login() {
 	return (
 		<LoginSpace>
