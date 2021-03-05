@@ -33,7 +33,7 @@ export default function ChatUser_MeProvider({ children }) {
     const [me, setMe] = useLocalStorage('me', initMe, isClearHistory); 
 
     useEffect(()=>{
-        console.log(123)
+        
         // window.addEventListener("beforeunload", (ev) => {  
         //     ev.returnValue = 'Are you sure you want to close?';
         //     return;
