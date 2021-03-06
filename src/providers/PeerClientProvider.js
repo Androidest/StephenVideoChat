@@ -1,8 +1,8 @@
-// ChatUserProvider 为社交用户，本app使用者，一个浏览器一个。
+// PeerClientProvider 为社交用户，本app使用者，一个浏览器一个。
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "providers/AuthProvider";
-import ChatUser_MeProvider from "providers/ChatUser_MeProvider";
-import ChatUser_ThemProvider from "providers/ChatUser_ThemProvider";
+import PeerClient_MeProvider from "providers/PeerClient_MeProvider";
+import PeerClient_ThemProvider from "providers/PeerClient_ThemProvider";
 import { isTesting } from "commons/constants";
 
 
@@ -35,24 +35,24 @@ function InitProvider({ children }) {
     )
 } 
 
-//主provider逻辑模块， 在此将ChatUserProvider分割成三个小模块
+//主provider逻辑模块， 在此将PeerClientProvider分割成三个小模块
 //是为了防止在一个 state 更新时，即使组件没有使用这个state 
 //而使用其他同 Provider 的 state 也会被连带重渲染
-export default function ChatUserProvider({ children }) {
+export default function PeerClientProvider({ children }) {
     return (
         <InitProvider> 
-            <ChatUser_MeProvider> 
-                <ChatUser_ThemProvider> 
+            <PeerClient_MeProvider> 
+                <PeerClient_ThemProvider> 
                     {children}
-                </ChatUser_ThemProvider>
-            </ChatUser_MeProvider>
+                </PeerClient_ThemProvider>
+            </PeerClient_MeProvider>
         </InitProvider>
     )
 } 
 
 // ====== 自定义context hook =============
 /**
- * @description ChatUserProvider 的子组件可以使用 useChatUser() 获得ChatUserProvider的状态
+ * @description PeerClientProvider 的子组件可以使用 useChatUser() 获得PeerClientProvider的状态
  * @return {{ isReady:boolean, setReady:Function }}
  */
 export function useChatUser() {

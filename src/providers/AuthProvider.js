@@ -1,5 +1,5 @@
 //AuthProvider 用于允许登入者拥有访问服务器的权限，使用一个特定账号登录，并非社交用户。
-//社交用户请看ChatUserProvider
+//社交用户请看PeerClientProvider
 import { createContext, useContext, useEffect, useState } from "react";
 import { AES } from "crypto-js";
 import { dbAuth } from "../commons/FBase";

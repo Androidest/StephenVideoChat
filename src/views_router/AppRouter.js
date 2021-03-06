@@ -1,5 +1,5 @@
 import { useAuth } from "providers/AuthProvider";
-import { useChatUser } from "providers/ChatUserProvider";
+import { useChatUser } from "providers/PeerClientProvider";
 import { Css } from "commons/SharedStyle";
 import { HashRouter, Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import styled from "styled-components";

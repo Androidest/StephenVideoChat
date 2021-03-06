@@ -3,7 +3,7 @@ import * as WebCam from 'react-webcam'
 import styled from 'styled-components';
 import { Css, GlobalStyle } from 'commons/SharedStyle';
 import AuthProvider from 'providers/AuthProvider'; //登录验证的逻辑组件
-import ChatUserProvider from 'providers/ChatUserProvider'; //登录后的用户管理组件
+import PeerClientProvider from 'providers/PeerClientProvider'; //登录后的用户管理组件
 
 import AppRouter from 'views_router/AppRouter';
 
@@ -12,11 +12,11 @@ function App() {
 		<AppContainer>
 			<GlobalStyle/>
 				<AuthProvider>
-					<ChatUserProvider>
+					<PeerClientProvider>
 
 						<AppRouter />
 
-					</ChatUserProvider>
+					</PeerClientProvider>
 			</AuthProvider>
 		</AppContainer>
 	);

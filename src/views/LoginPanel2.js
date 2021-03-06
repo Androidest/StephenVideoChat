@@ -1,4 +1,4 @@
-import { useChatUser } from "providers/ChatUserProvider";
+import { useChatUser } from "providers/PeerClientProvider";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import BounceButton from "./BounceButton";
@@ -8,7 +8,7 @@ import LoadingAnim from "views/LoadingAnim";
 import { useHistory, useLocation } from "react-router-dom";
 import { HOME } from "views_router/AppRouter";
 import { Css } from "commons/SharedStyle";
-import { useMe } from "providers/ChatUser_MeProvider";
+import { useMe } from "providers/PeerClient_MeProvider";
 
 
 function UserPhoto({reference, src, onChange}) {

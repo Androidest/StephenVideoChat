@@ -1,4 +1,4 @@
-// ChatUserProvider 为社交用户，本app使用者，一个浏览器一个。
+// PeerClientProvider 为社交用户，本app使用者，一个浏览器一个。
 import { useLocalStorage } from "commons/LocalStorage";
 import { createContext, useContext, useEffect, useState } from "react";
 import { v4 } from 'uuid';
@@ -29,7 +29,7 @@ const meContext = createContext(null);
 
 // ====== 自定义context container =============
 //当前用户的数据
-export default function ChatUser_MeProvider({ children }) {
+export default function PeerClient_MeProvider({ children }) {
     const [me, setMe] = useLocalStorage('me', initMe, isClearHistory); 
 
     useEffect(()=>{
@@ -84,7 +84,7 @@ export default function ChatUser_MeProvider({ children }) {
 
 // ====== 自定义context hook =============
 /**
- * @description ChatUserProvider 的子组件可以使用 useMe() 获得当前社交用户的hook
+ * @description PeerClientProvider 的子组件可以使用 useMe() 获得当前社交用户的hook
  * @return {{ me:object, setPhoto:Function, setName:Function }}
  */
 export function useMe() {
