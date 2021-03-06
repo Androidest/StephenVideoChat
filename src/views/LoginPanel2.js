@@ -1,4 +1,4 @@
-import { useChatUser } from "providers/PeerClientProvider";
+import { usePeerClient } from "providers/PeerClientProvider";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import BounceButton from "./BounceButton";
@@ -60,7 +60,7 @@ function UserName({reference, ...rest}) {
 }
 
 export default function LoginPanel2() {
-    const { setReady } = useChatUser(); //context 数据
+    const { setReady } = usePeerClient(); //context 数据
     const { me: {name, photoURL}, setName, setPhoto } = useMe(); //context 数据
     const nameRef = useRef(); //用户名输入框的引用
     const photoRef = useRef(); //头像框的引用

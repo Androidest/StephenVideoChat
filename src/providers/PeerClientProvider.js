@@ -52,9 +52,9 @@ export default function PeerClientProvider({ children }) {
 
 // ====== 自定义context hook =============
 /**
- * @description PeerClientProvider 的子组件可以使用 useChatUser() 获得PeerClientProvider的状态
+ * @description PeerClientProvider 的子组件可以使用 usePeerClient() 获得PeerClientProvider的状态
  * @return {{ isReady:boolean, setReady:Function }}
  */
-export function useChatUser() {
+export function usePeerClient() {
     return useContext(initContext);
 }
