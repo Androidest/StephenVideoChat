@@ -9,6 +9,7 @@ import Login from "./Login";
 import Profile from "./Profile";
 import LoadingAnim from "views/LoadingAnim";
 import { memo } from "react";
+import { usePeerServer } from "providers/PeerServerProvider";
 
 
 //================ 常量，其他文件也可以访问 =========================
@@ -43,19 +44,19 @@ function MainRouter() {
     const auth = useAuth();
     return (
         <>
-            <Navigation>
-                <NavButton to={HOME}>Home</NavButton>
-                <NavButton to={GROUPCHAT}>Group Chat</NavButton>
-                <NavButton to={PROFILE}>Profile</NavButton>
-                <button onClick={()=>auth.logout()}>sign out</button>
-            </Navigation>
-            
             <Switch>
                 <Route exact path={HOME}> <Home/> </Route>
                 <Route exact path={GROUPCHAT}> <GroupChat/> </Route>
                 <Route exact path={PROFILE}> <Profile/>  </Route>
                 <DefaultRoute redirectPath={HOME}/>
             </Switch>
+
+            <Navigation>
+                <NavButton to={HOME}>Home</NavButton>
+                <NavButton to={GROUPCHAT}>Group Chat</NavButton>
+                <NavButton to={PROFILE}>Profile</NavButton>
+                <button onClick={()=>auth.logout()}>sign out</button>
+            </Navigation>
         </>
     );
 }
@@ -63,15 +64,16 @@ function MainRouter() {
 //================ App Route =========================
 export default function AppRouter() {
     const auth = useAuth();
-    const cUser = usePeerClient();
+    const server = usePeerServer();
+    const client = usePeerClient(); 
 
     return (
         <>{
             //判断是否在自动登录
-            auth.isInit ? ( 
+            (auth.isInit && server.isInit && client.isInit) ? ( 
                 //因为后端部署在github page，无法控制路由路径，于是用HashRouter加‘#’区分前后端路由
                 <HashRouter>{ 
-                    (auth.user && cUser.isReady) ? (  
+                    (auth.user && client.isConnectedToServer) ? (  
                         //Login 的两个界面都通过后, 切换成MainRouter
                         <MainRouter/>
                     ) : (
@@ -92,12 +94,10 @@ const BigLodingAnim = styled(LoadingAnim) `
 `
 
 const NavButton = styled(Link) `
-    width: 170px;
-    height: 50px;
-    color: white;
+    flex: 1;
+    height: 100%;
+    color: black;
     text-decoration: none;
-    background-color: #8080c0;
-    border-radius: 25px;
     ${Css.flex_row.horz.center}
     ${Css.flex_row.vert.center}
 `;
@@ -105,7 +105,7 @@ const NavButton = styled(Link) `
 const Navigation = styled.div `
     width: 100%;
     height: 50px;
-    background-color: #91dbff;
+    background-color: #ececec;
     ${Css.flex_row.horz.in_out_space}
     ${Css.flex_row.vert.center}
 `;

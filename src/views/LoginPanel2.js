@@ -60,8 +60,8 @@ function UserName({reference, ...rest}) {
 }
 
 export default function LoginPanel2() {
-    const { setReady } = usePeerClient(); //context 数据
-    const { me: {name, photoURL}, setName, setPhoto } = useMe(); //context 数据
+    const { connectToServer } = usePeerClient(); //context 数据
+    const { info: {name, photoURL}, setName, setPhoto } = useMe(); //context 数据
     const nameRef = useRef(); //用户名输入框的引用
     const photoRef = useRef(); //头像框的引用
     const [isLoading, setLoading] = useState(false);
@@ -73,9 +73,8 @@ export default function LoginPanel2() {
         try {
             setError(null);
             setName(name, true); //true 代表name为最终确定的名字
-            // setLoading(true);
-            // setLoading(false);
-            setReady(true);
+            setLoading(true);
+            connectToServer();
             history.replace(location.state? location.state.from : HOME); 
         }
         //setName() 无效时丢出错误

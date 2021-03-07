@@ -3,8 +3,9 @@ import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 
 export default function LoadingAnim({className}) {
-    //一定的初速度 + 0 阻力，使动画在启动时就开始无限钟摆
-    const {i} = useSpring({ i:0, config:{mass:70, tensor:1.5, friction: 0, velocity:10} }); 
+    // 一定的初速度 + 0 阻力，使动画在启动时就开始无限钟摆, 
+    // reset=true 是为了重置动画，防止被多次重渲染时导致初速度为0
+    const {i} = useSpring({ i:0, reset:true, config:{mass:70, tensor:1.5, friction: 0, velocity:10} }); 
 
     return (
         <LoadingImg 
