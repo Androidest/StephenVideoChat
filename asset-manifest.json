@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/react-tensor-app/static/js/main.d7c325e3.chunk.js",
-    "main.js.map": "/react-tensor-app/static/js/main.d7c325e3.chunk.js.map",
+    "main.js": "/react-tensor-app/static/js/main.dfbb1b0c.chunk.js",
+    "main.js.map": "/react-tensor-app/static/js/main.dfbb1b0c.chunk.js.map",
     "runtime-main.js": "/react-tensor-app/static/js/runtime-main.7ec2fc42.js",
     "runtime-main.js.map": "/react-tensor-app/static/js/runtime-main.7ec2fc42.js.map",
     "static/js/2.117ebd44.chunk.js": "/react-tensor-app/static/js/2.117ebd44.chunk.js",
@@ -24,6 +24,6 @@
   "entrypoints": [
     "static/js/runtime-main.7ec2fc42.js",
     "static/js/2.117ebd44.chunk.js",
-    "static/js/main.d7c325e3.chunk.js"
+    "static/js/main.dfbb1b0c.chunk.js"
   ]
 }
