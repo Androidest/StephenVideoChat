@@ -1,5 +1,3 @@
-import * as tf from '@tensorflow/tfjs'
-import * as WebCam from 'react-webcam' 
 import styled from 'styled-components';
 import { Css, GlobalStyle } from 'commons/SharedStyle';
 import AuthProvider from 'providers/AuthProvider'; //登录验证的逻辑组件
