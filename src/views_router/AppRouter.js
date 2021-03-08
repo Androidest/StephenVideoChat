@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import LoadingAnim from "views/LoadingAnim";
 import { memo } from "react";
 import { usePeerServer } from "providers/PeerServerProvider";
+import { version } from "commons/constants";
 
 
 //================ 常量，其他文件也可以访问 =========================
@@ -81,7 +82,10 @@ export default function AppRouter() {
                     )
                 }</HashRouter>
             ) : (
-                <BigLodingAnim/>
+                <>
+                    <BigLodingAnim/>
+                    <Version>version: {version}</Version>
+                </>
             )
         }</>
     );
@@ -108,4 +112,9 @@ const Navigation = styled.div `
     background-color: #ececec;
     ${Css.flex_row.horz.in_out_space}
     ${Css.flex_row.vert.center}
+`;
+
+const Version = styled.p `
+    color: rgba(255,255,255,0.3);
+    margin: 1.5ch;
 `;

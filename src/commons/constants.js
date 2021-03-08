@@ -1,6 +1,7 @@
 //==== 常量 =====
 import { v4 } from 'uuid';
 
+export const version = '1.0.0';
 export const isTesting = false;
 export const SERVER_DATA_TYPE = {
     NEW_USER: 1,
