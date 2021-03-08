@@ -1,7 +1,7 @@
 //==== 常量 =====
 import { v4 } from 'uuid';
 
-export const version = '1.0.0';
+export const version = '1.0.1';
 export const isTesting = false;
 export const SERVER_DATA_TYPE = {
     NEW_USER: 1,
@@ -28,35 +28,35 @@ export const peerConfig = {
         {url:'stun:stun2.l.google.com:19302'},
         {url:'stun:stun3.l.google.com:19302'},
         {url:'stun:stun4.l.google.com:19302'},
-        // { 
-        //     url: 'turn:homeo@turn.bistri.com:80', 
-        //     credential: 'homeo' 
-        // },
-        // {
-        //     urls: ["turn:13.250.13.83:3478?transport=udp"],
-        //     username: "YzYNCouZM1mhqhmseWk6",
-        //     credential: "YzYNCouZM1mhqhmseWk6"
-        // },
-        // {
-        //     url: 'turn:numb.viagenie.ca',
-        //     credential: 'muazkh',
-        //     username: 'webrtc@live.com'
-        // },
-        // {
-        //     url: 'turn:192.158.29.39:3478?transport=udp',
-        //     credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-        //     username: '28224511:1379330808'
-        // },
-        // {
-        //     url: 'turn:192.158.29.39:3478?transport=tcp',
-        //     credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-        //     username: '28224511:1379330808'
-        // },
-        // {
-        //     url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-        //     credential: 'webrtc',
-        //     username: 'webrtc'
-        // }
+        { 
+            url: 'turn:homeo@turn.bistri.com:80', 
+            credential: 'homeo' 
+        },
+        {
+            urls: ["turn:13.250.13.83:3478?transport=udp"],
+            username: "YzYNCouZM1mhqhmseWk6",
+            credential: "YzYNCouZM1mhqhmseWk6"
+        },
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=tcp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+            credential: 'webrtc',
+            username: 'webrtc'
+        }
     ], 
     sdpSemantics: 'unified-plan' 
 };

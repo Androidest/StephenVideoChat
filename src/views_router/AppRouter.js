@@ -115,6 +115,6 @@ const Navigation = styled.div `
 `;
 
 const Version = styled.p `
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.2);
     margin: 1.5ch;
 `;
