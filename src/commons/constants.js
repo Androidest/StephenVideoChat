@@ -3,7 +3,18 @@ import { v4 } from 'uuid';
 
 export const isTesting = false;
 export const peerClientID = 'StphClientID_'+v4().replaceAll('-','_'); //将减号代替成下划线，字母开头
-export const peerServerID = 'Alan-Stephen-Leong-Song_ServerID_iY2RlZmdoaWF';
+export const peerServerID = 'Alan-Stephen-Leong-Song_ServerID_mJygpKissLS4vM';
+export const peerConfig = { 
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        }
+    ], 
+    sdpSemantics: 'unified-plan' 
+};
 
 export const SERVER_DATA_TYPE = {
     NEW_USER: 1,

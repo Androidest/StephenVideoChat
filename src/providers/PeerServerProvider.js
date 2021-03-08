@@ -1,6 +1,6 @@
 // PeerClientProvider 为社交用户，本app使用者，一个浏览器一个。
 import Peer from "peerjs";
-import { peerServerID, SERVER_DATA_TYPE } from 'commons/constants';
+import { peerConfig, peerServerID, SERVER_DATA_TYPE } from 'commons/constants';
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 
 
@@ -21,8 +21,9 @@ export default function PeerServerProvider({ children }) {
     const createServerPeer = (serverRef)=> {
         if(serverRef.current.peer) return;
 
-        console.log('Trying to create a peer server ...')
-        const peer = new Peer(peerServerID);
+        console.log('Trying to create a peer server ...');
+
+        const peer = new Peer(peerServerID, peerConfig);
         serverRef.current.peer = peer;
 
         peer.on("open", (id) => {

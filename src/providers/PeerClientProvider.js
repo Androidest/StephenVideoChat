@@ -4,7 +4,7 @@ import { useAuth } from "providers/AuthProvider";
 import PeerClient_MeProvider, { useMe } from "providers/PeerClient_MeProvider";
 import PeerClient_UsersProvider from "providers/PeerClient_UsersProvider";
 import Peer from "peerjs";
-import { peerClientID, peerServerID, SERVER_DATA_TYPE } from "commons/constants";
+import { peerClientID, peerConfig, peerServerID, SERVER_DATA_TYPE } from "commons/constants";
 
 
 const initContext = createContext(null);
@@ -32,7 +32,7 @@ function InitProvider({ children }) {
     const createClientPeer = ()=> {
         if(clientRef.current.peer) return; //防止因auth的更新而被多次初始化，不能用isInit判断
 
-        const peer = new Peer(peerClientID);
+        const peer = new Peer(peerClientID, peerConfig);
         clientRef.current.peer = peer;
 
         peer.on('open', (id)=> {
