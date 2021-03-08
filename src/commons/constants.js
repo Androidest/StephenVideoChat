@@ -27,6 +27,15 @@ export const peerConfig = {
         {url:'stun:stun2.l.google.com:19302'},
         {url:'stun:stun3.l.google.com:19302'},
         {url:'stun:stun4.l.google.com:19302'},
+        { 
+            url: 'turn:homeo@turn.bistri.com:80', 
+            credential: 'homeo' 
+        },
+        {
+            urls: "turn:13.250.13.83:3478?transport=udp",
+            username: "YzYNCouZM1mhqhmseWk6",
+            credential: "YzYNCouZM1mhqhmseWk6"
+        },
         {
             url: 'turn:numb.viagenie.ca',
             credential: 'muazkh',
@@ -43,11 +52,6 @@ export const peerConfig = {
             username: '28224511:1379330808'
         },
         {
-            url: 'turn:turn.bistri.com:80',
-            credential: 'homeo',
-            username: 'homeo'
-         },
-         {
             url: 'turn:turn.anyfirewall.com:443?transport=tcp',
             credential: 'webrtc',
             username: 'webrtc'
