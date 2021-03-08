@@ -59,7 +59,7 @@ function InitProvider({ children }) {
             return;
         }
 
-        const serverConnection = clientRef.current.peer.connect(peerServerID, { reliable: true });
+        const serverConnection = clientRef.current.peer.connect(peerServerID);
 
         serverConnection.on('open', ()=> {
             console.log("Connected to peer server");
