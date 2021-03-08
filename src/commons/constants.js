@@ -27,10 +27,10 @@ export const peerConfig = {
         {url:'stun:stun2.l.google.com:19302'},
         {url:'stun:stun3.l.google.com:19302'},
         {url:'stun:stun4.l.google.com:19302'},
-        { 
-            url: 'turn:homeo@turn.bistri.com:80', 
-            credential: 'homeo' 
-        },
+        // { 
+        //     url: 'turn:homeo@turn.bistri.com:80', 
+        //     credential: 'homeo' 
+        // },
         // {
         //     urls: ["turn:13.250.13.83:3478?transport=udp"],
         //     username: "YzYNCouZM1mhqhmseWk6",
