@@ -55,7 +55,7 @@ class FakeFireBase {
         if(item) {
             const user = JSON.parse(item);
             const date = new Date();
-            if(date.getTime() - user.time < 60*1000) {
+            if(date.getTime() - user.time < this.expireTime) {
                 this.setUser(user);
                 return;
             }
