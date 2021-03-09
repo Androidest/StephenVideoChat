@@ -42,15 +42,24 @@ function InitProvider({ children }) {
             setInit(true);
         });
 
+        //断开时重连signaling server
+        peer.on('disconnected', ()=> {
+            peer.id = peerClientID;
+            peer._lastServerId = peerClientID;
+            peer.reconnect();
+        });
+
         peer.on('error', (error)=> {
+            // 建立 connection 那边将传过来 onPeerError 的回调函数
             clientRef.current.onPeerError && clientRef.current.onPeerError(error);
             console.log(error);
         });
 
-        // window.addEventListener("beforeunload", (ev) => {  
-        //     ev.returnValue = 'Are you sure you want to close?';
-        //     return;
-        // });
+        //关闭浏览器页面时销毁peer，释放signaling server资源
+        window.addEventListener("beforeunload", (event) => {
+            peer.destroy();
+            // ev.returnValue = 'Are you sure you want to close?';
+        });
     }
 
     //============== 连接服务器 =======================
@@ -64,29 +73,39 @@ function InitProvider({ children }) {
 
             const serverConnection = clientRef.current.peer.connect(peerServerID);
 
+            //当成功连上peer server 时
             serverConnection.on('open', ()=> {
                 console.log("Connected to peer server");
                 clientRef.current.serverConnection = serverConnection;
                 
+                //向peer server 发送当前用户的信息，好让它广播给其他用户
                 serverConnection.send({ 
                     type: SERVER_DATA_TYPE.NEW_USER, 
                     user: me.info 
                 });
 
-                setConnectedToServer(true);
-                resolve(null);
+                setConnectedToServer(true); //用于通知其他组件已经连接成功，这些组件没有直接调用connectToServer
+                resolve(null); //用于立刻通知调用connectToServer的地方，peer已经成功连上peer server
             });
             
-            serverConnection.on('data', (data)=> {
-                if(data.type === SERVER_DATA_TYPE.USERS_SNAPSHOT && data.users) {
-                    clientRef.current.onUsersSnapshot(data.users); //调用回调函数，通知外部更新用户列表
+            //只接收peer服务器发来的用户列表，所有在线的用户
+            serverConnection.on('data', ({type, data})=> {
+                if(type === SERVER_DATA_TYPE.USERS_SNAPSHOT && data) {
+                    clientRef.current.onUsersSnapshot(data); //调用回调函数，通知外部更新用户列表
                 }
+            });
+
+            serverConnection.on('close', ()=> {
+                console.log('We lost the peer server!');
+                window.location.reload();
             });
 
             serverConnection.on('error', (error)=> {
                 reject('Connection error');
             });
 
+            //连不上 peer server 时，错误会出现在 peer上而不是在 connection 上，
+            // 把reject的处理通过 clientRef.current.onPeerError 传递给 peer  
             clientRef.current.onPeerError = (error)=>{
                 if(error.type === "peer-unavailable") {
                     reject('Could not connect to the peer server!');
@@ -97,8 +116,11 @@ function InitProvider({ children }) {
         });
     };
 
-    // ================ 设置回调函数，当有新的用户连接进来时，调用回调函数 ===================
+    // ================ 设置回调函数 ===================
     const setOnUsersSnapshot = (callback)=> {
+        // 当有新的用户连接进来时，通过回调函数通知其他外部组件更新状态
+        // view 那边的组件可以通过这个回调，更新组件那边的 state
+        // 若把用户列表设在这个 provider 的state上，每次列表更新都会导致其他 state 关联的组件也会被强制刷新
         clientRef.current.onUsersSnapshot = callback;
     }
     
