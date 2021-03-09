@@ -59,11 +59,21 @@ function UserName({reference, ...rest}) {
     );
 }
 
+function StartButton({reference, ...rest}) {
+    const [style, triggerShaking] = useShakeAnim(i=>`translate3d(${i}ch, 0, 0)`); //出错时的抖动动画
+    reference.current = { triggerShaking }; //此组件的引用，用于导出动画触发函数给外部使用
+
+    return (
+        <Button {...rest} style={style}> START </Button>
+    );
+}
+
 export default function LoginPanel2() {
     const { connectToServer } = usePeerClient(); //context 数据
     const { info: {name, photoURL}, setName, setPhoto } = useMe(); //context 数据
     const nameRef = useRef(); //用户名输入框的引用
     const photoRef = useRef(); //头像框的引用
+    const buttonRef = useRef(); //头像框的引用
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const location = useLocation();
@@ -73,9 +83,19 @@ export default function LoginPanel2() {
         try {
             setError(null);
             setName(name, true); //true 代表name为最终确定的名字
-            setLoading(true);
-            connectToServer();
-            history.replace(location.state? location.state.from : HOME); 
+            setLoading(true); //开始loading动画代表连接中
+
+            // 连接 peer 服务器
+            connectToServer()
+            .then(()=> {
+                history.replace(location.state? location.state.from : HOME); // 连接成功后，页面跳转到重定向至Login前用户指定的位置
+            })
+            .catch((error)=> {
+                setLoading(false);
+                setError(error); //显示错误信息
+                buttonRef.current.triggerShaking(); //连接错误时触发按钮抖动动画
+            });
+             
         }
         //setName() 无效时丢出错误
         catch(error) {
@@ -116,7 +136,7 @@ export default function LoginPanel2() {
         <>
             <UserPhoto reference={photoRef} src={photoURL}  onChange={onFileChange}/>
             <UserName reference={nameRef} value={name} onChange={onNameChange} />
-            { !isLoading && <Button onClick={onClick}> START </Button> }
+            { !isLoading && <StartButton reference={buttonRef} onClick={onClick}> START </StartButton> }
             { !isLoading && error && <ErrorMsg>{error}</ErrorMsg> }
             { isLoading && <LoadingAnim/> }
         </>

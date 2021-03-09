@@ -1,4 +1,4 @@
-// PeerClientProvider 为社交用户，本app使用者，一个浏览器一个。
+// PeerServerProvider：只有一个网页实例会创建 peer 服务器，其他网页实都会以 peer 客户端的形式连进来（包括自己）
 import Peer from "peerjs";
 import { peerConfig, peerServerID, SERVER_DATA_TYPE } from 'commons/constants';
 import { createContext, useContext, useEffect, useState, useRef } from "react";
@@ -23,7 +23,7 @@ export default function PeerServerProvider({ children }) {
 
         console.log('Trying to create a peer server ...');
 
-        const peer = new Peer(peerServerID, peerConfig);
+        const peer = new Peer(peerServerID, peerConfig); //创建 peer 服务器
         serverRef.current.peer = peer;
 
         peer.on("open", (id) => {

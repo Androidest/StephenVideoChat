@@ -16,7 +16,7 @@ function InitProvider({ children }) {
     const me = useMe();
     const [isInit, setInit] = useState(false);
     const [isConnectedToServer, setConnectedToServer] = useState(false);
-    const clientRef = useRef({ peer:null, serverConnection:null, onUsersSnapshot:()=>{} });
+    const clientRef = useRef({ peer:null, serverConnection:null, onUsersSnapshot:()=>{}, onPeerError:null });
 
     //================= 初始化 ===========================
     useEffect(()=> {
@@ -32,7 +32,7 @@ function InitProvider({ children }) {
     const createClientPeer = ()=> {
         if(clientRef.current.peer) return; //防止因auth的更新而被多次初始化，不能用isInit判断
 
-        const peer = new Peer(peerClientID, peerConfig);
+        const peer = new Peer(peerClientID, peerConfig); //创建 peer 客户端
         clientRef.current.peer = peer;
 
         peer.on('open', (id)=> {
@@ -42,8 +42,9 @@ function InitProvider({ children }) {
             setInit(true);
         });
 
-        peer.on('error', (err)=> {
-            console.log(err);
+        peer.on('error', (error)=> {
+            clientRef.current.onPeerError && clientRef.current.onPeerError(error);
+            console.log(error);
         });
 
         // window.addEventListener("beforeunload", (ev) => {  
@@ -53,32 +54,50 @@ function InitProvider({ children }) {
     }
 
     //============== 连接服务器 =======================
-    const connectToServer = ()=> {
-        if(clientRef.current.serverConnection) {
-            setConnectedToServer(true);
-            return;
-        }
+    const connectToServer = async ()=> {
+        return new Promise((resolve, reject)=>{
 
-        const serverConnection = clientRef.current.peer.connect(peerServerID);
-
-        serverConnection.on('open', ()=> {
-            console.log("Connected to peer server");
-            clientRef.current.serverConnection = serverConnection;
-            setConnectedToServer(true);
-
-            serverConnection.send({ 
-                type: SERVER_DATA_TYPE.NEW_USER, 
-                user: me.info 
-            });
-        });
-        
-        serverConnection.on('data', (data)=> {
-            if(data.type === SERVER_DATA_TYPE.USERS_SNAPSHOT && data.users) {
-                clientRef.current.onUsersSnapshot(data.users);
+            if(clientRef.current.serverConnection) {
+                setConnectedToServer(true);
+                resolve(null);
             }
+
+            const serverConnection = clientRef.current.peer.connect(peerServerID);
+
+            serverConnection.on('open', ()=> {
+                console.log("Connected to peer server");
+                clientRef.current.serverConnection = serverConnection;
+                
+                serverConnection.send({ 
+                    type: SERVER_DATA_TYPE.NEW_USER, 
+                    user: me.info 
+                });
+
+                setConnectedToServer(true);
+                resolve(null);
+            });
+            
+            serverConnection.on('data', (data)=> {
+                if(data.type === SERVER_DATA_TYPE.USERS_SNAPSHOT && data.users) {
+                    clientRef.current.onUsersSnapshot(data.users); //调用回调函数，通知外部更新用户列表
+                }
+            });
+
+            serverConnection.on('error', (error)=> {
+                reject('Connection error');
+            });
+
+            clientRef.current.onPeerError = (error)=>{
+                if(error.type === "peer-unavailable") {
+                    reject('Could not connect to the peer server!');
+                }
+                reject(error);
+            };
+            
         });
     };
 
+    // ================ 设置回调函数，当有新的用户连接进来时，调用回调函数 ===================
     const setOnUsersSnapshot = (callback)=> {
         clientRef.current.onUsersSnapshot = callback;
     }

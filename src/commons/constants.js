@@ -1,7 +1,7 @@
 //==== 常量 =====
 import { v4 } from 'uuid';
 
-export const version = '1.0.1';
+export const version = '1.0.2';
 export const isTesting = false;
 export const SERVER_DATA_TYPE = {
     NEW_USER: 1,
@@ -28,14 +28,14 @@ export const peerConfig = {
         {url:'stun:stun2.l.google.com:19302'},
         {url:'stun:stun3.l.google.com:19302'},
         {url:'stun:stun4.l.google.com:19302'},
-        { 
-            url: 'turn:homeo@turn.bistri.com:80', 
-            credential: 'homeo' 
-        },
         {
             urls: ["turn:13.250.13.83:3478?transport=udp"],
             username: "YzYNCouZM1mhqhmseWk6",
             credential: "YzYNCouZM1mhqhmseWk6"
+        },
+        { 
+            url: 'turn:homeo@turn.bistri.com:80', 
+            credential: 'homeo' 
         },
         {
             url: 'turn:numb.viagenie.ca',

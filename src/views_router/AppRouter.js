@@ -73,7 +73,7 @@ export default function AppRouter() {
             //判断是否在自动登录
             (auth.isInit && server.isInit && client.isInit) ? ( 
                 //因为后端部署在github page，无法控制路由路径，于是用HashRouter加‘#’区分前后端路由
-                <HashRouter>{ 
+                <HashRouter>{
                     (auth.user && client.isConnectedToServer) ? (  
                         //Login 的两个界面都通过后, 切换成MainRouter
                         <MainRouter/>
