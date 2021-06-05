@@ -1,7 +1,7 @@
 #%% settings
 # ============================================================================
 db_path = './datasets/hand_pose'
-pose_type = ['None', 'pointer1', 'pointer2', 'pointer4', 'horz_punch']
+pose_type = ['None', 'pointer1', 'pointer2'] # , 'horz_punch'
 
 
 # %% record data

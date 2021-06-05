@@ -11,7 +11,7 @@ def videoCapture(winName, onUpdate, onClose=None):
         ret, frame = videoCap.read()
         if ret==True:
             frame = cv2.flip(frame, 1)
-            frame = onUpdate(frame, key)
+            frame = onUpdate(frame, key, videoCap)
             cv2.imshow(winName, frame)
 
         key = cv2.waitKey(1)

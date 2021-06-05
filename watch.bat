@@ -1,0 +1,1 @@
+tensorboard --logdir=.\gesture_training\models\hand_pose.tblogs

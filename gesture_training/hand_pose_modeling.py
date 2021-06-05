@@ -7,10 +7,14 @@ import json
 
 batch_size = 64
 
-def load_data(split=0.9):
+def getPoseName():
     pose = []
     with open('./datasets/hand_pose/pose_name.json') as file:
         pose = json.load(file)
+    return pose
+
+def load_data(split=0.9):
+    pose = getPoseName()
 
     data = tf.io.read_file('./datasets/hand_pose/hand_pose.ds')
     data = tf.io.parse_tensor(data, tf.float32).numpy()
@@ -39,7 +43,12 @@ ds_train, ds_test, pose = load_data(split=0.8)
 
 # %% train hand pose
 # ===========================================================================
-learning_rate = 0.0001
+epochs = 80
+learning_rate = 0.0008
+
+def lr_decay(epoch):
+    return learning_rate * 0.94 ** epoch
+lr_cb = tf.keras.callbacks.LearningRateScheduler(lr_decay)
 
 def create_model():
     x1 = layers.Input(shape=(12,), name="Finger1")
@@ -56,11 +65,11 @@ def create_model():
 
     h = layers.Concatenate()([h1, h2, h3, h4, h5])
     h = layers.BatchNormalization()(h)
-    h = layers.Dropout(0.4)(h)
+    h = layers.Dropout(0.2)(h)
 
-    h = layers.Dense(128, activation='relu')(h)
+    h = layers.Dense(80, activation='relu')(h)
     h = layers.BatchNormalization()(h)
-    h = layers.Dropout(0.4)(h)
+    h = layers.Dropout(0.2)(h)
     output = layers.Dense(len(pose))(h)
 
     model = tf.keras.Model(inputs=[x1,x2,x3,x4,x5], outputs=output)
@@ -72,11 +81,11 @@ def create_model():
 
     return model
 
-board_cb = tf.keras.callbacks.TensorBoard('./models/board_logs')
+board_cb = tf.keras.callbacks.TensorBoard('./models/hand_pose.tblogs')
 model = create_model()
 model.fit(x=ds_train, validation_data=ds_test,
-        epochs=20, verbose=1, 
-        callbacks=[board_cb])
+        epochs=epochs, verbose=1, 
+        callbacks=[board_cb, lr_cb])
 
 model.save('./models/hand_pose.h5')
 
@@ -89,9 +98,10 @@ import mediapipe as mp
 from common import videoCapture
 from landmark import draw_landmark, landmark_to_list, vectorize_landmark
 
+model = tf.keras.models.load_model('./models/hand_pose.h5', compile=False)
 hands =  mp.solutions.hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5, max_num_hands=1)
 
-def predict(frame, key):
+def predict(frame, key, videoCap):
     h, w, c = frame.shape
     ratio = h/w
 
@@ -101,9 +111,15 @@ def predict(frame, key):
         landmark = landmark_to_list(results.multi_hand_landmarks[0].landmark, ratio)
         vlandmark = [vectorize_landmark(landmark)]
         inputs = tf.split(vlandmark, num_or_size_splits=5, axis=-1)
+        
         index = tf.argmax(model.predict([inputs]), axis=1).numpy()[0]
-        cv2.putText(frame, pose[index], (int(w/4),int(h/2)), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
 
+        pred_pose = pose[index]
+        # if pred_pose != 'None':
+        cv2.putText(frame, pred_pose, (int(w/4),30), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+
+    fps = str(videoCap.get(cv2.CAP_PROP_FPS))
+    cv2.putText(frame, fps+' fps', (0,10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0,255,0), 1)
     return frame
 
 videoCapture('Gesture Capture', onUpdate=predict)
