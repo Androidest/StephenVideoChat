@@ -48,8 +48,3 @@ npm run deploy
 # and in package.json file add some properties homepage also in existing scripts property add predeploy and deploy
 # and created a remote repository and initialize it
 # and run npm run deploy to generate a production build and deploy it to GitHub Pages.
-
-
-# ================= modules =================
-# uses styked-component for styling
-# uses firebase as backend

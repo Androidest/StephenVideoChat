@@ -10,7 +10,7 @@ const usersContext = createContext(null);
 //存储其他已连接的用户的相关数据
 export default function PeerClient_UsersProvider({ children }) {
     const peerClient = usePeerClient();
-    const [list, setList] = useState([]);
+    const [list, setList] = useState([]); 
 
     useEffect(()=>{
         peerClient.setOnUsersSnapshot(setupList);
