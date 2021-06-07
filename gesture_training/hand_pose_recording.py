@@ -14,7 +14,7 @@ from landmark import draw_landmark, landmark_to_list, vectorize_landmark
 
 hands =  mp.solutions.hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5, max_num_hands=1)
 
-def predict(frame, key):
+def predict(frame, key, videoCap):
     h, w, c = frame.shape
     ratio = h/w
 

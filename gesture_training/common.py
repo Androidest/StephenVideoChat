@@ -12,7 +12,8 @@ def videoCapture(winName, onUpdate, onClose=None):
         if ret==True:
             frame = cv2.flip(frame, 1)
             frame = onUpdate(frame, key, videoCap)
-            cv2.imshow(winName, frame)
+            if len(frame) != 0:
+                cv2.imshow(winName, frame)
 
         key = cv2.waitKey(1)
         if key in [27, 32, 0]:

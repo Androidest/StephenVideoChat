@@ -29,3 +29,18 @@ def draw_landmark(frame, results):
     frame.flags.writeable = True
     for hand_landmarks in results.multi_hand_landmarks:
         mp_drawing.draw_landmarks(frame, hand_landmarks, mp.solutions.hands.HAND_CONNECTIONS)
+
+
+def landmark_to_list_norm(landmark, ratio):
+    # filter the elements, keep one finger
+    landmark = [landmark[i] for i in [0,5,6,7,8]]
+    landmark = landmark_to_list(landmark, ratio)
+
+    lm_norm = []
+    origin = np.copy(landmark[0])
+    origin[2] = 0
+    for pos in landmark:
+        lm_norm += list(pos - origin)  
+
+    return lm_norm
+    
