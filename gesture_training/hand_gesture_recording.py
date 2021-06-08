@@ -1,7 +1,7 @@
 #%% settings
 # ============================================================================
 db_path = './datasets/hand_gesture'
-gesture_type = ['None', 'single_click', 'double_click'] 
+gesture_type = ['None', 'single_click'] 
 
 
 # %% record data
@@ -41,7 +41,6 @@ def predict(frame, key, videoCap):
         frameCount = 0
         sequence.clear()
         print('### Start recoding gesture: {gesture} ###'.format(gesture=gesture))
-        log = "Recording {gesture}".format(gesture=gesture)
 
     dt = time.time() - lastFrameTime
     lastFrameTime = time.time()
@@ -50,7 +49,7 @@ def predict(frame, key, videoCap):
         return []
 
     time_elapsed = 0
-    frame_rate = np.random.normal(loc=30, scale=10) # fps 21 ~ 39 
+    frame_rate = np.random.normal(loc=25, scale=5) # fps 21 ~ 39 
 
     h, w, c = frame.shape
     ratio = h/w
@@ -63,12 +62,13 @@ def predict(frame, key, videoCap):
         landmark = landmark_to_list(results.multi_hand_landmarks[0].landmark, ratio)
         vlandmark = [vectorize_landmark(landmark)]
         inputs = tf.split(vlandmark, num_or_size_splits=5, axis=-1)
-        index = tf.argmax(model.predict([inputs]), axis=1).numpy()[0]
+        index = tf.argmax(model([inputs]), axis=1).numpy()[0]
         log2 = pose[index]
             
         if frameCount != -1 and frameCount < recordFrames:
             frameCount += 1
             sequence.append(f1_landmark + [dt])
+            log = "Recording {gesture}: {percent}%".format(gesture=gesture, percent=int(frameCount/recordFrames*100))
 
         elif frameCount == recordFrames:
             content = sequence
@@ -81,7 +81,7 @@ def predict(frame, key, videoCap):
 
             frameCount = -1
 
-    cv2.putText(frame, log, (int(w/4),30), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)       
+    cv2.putText(frame, log, (int(w/5),30), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)       
     cv2.putText(frame, log2, (int(w/4),60), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)       
     return frame
 

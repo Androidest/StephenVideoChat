@@ -1,31 +1,17 @@
 #%% load dataset
 # ========================================================================
-from numpy.core.fromnumeric import squeeze
 import tensorflow as tf
 import tensorflow.keras.layers as layers
-from tensorflow.keras.regularizers import l2
 import json
 import shutil
-from tensorflow.python.keras.layers.core import Dropout
-
-from tensorflow.python.keras.layers.normalization_v2 import BatchNormalization
 
 batch_size = 64
 
-def getLabelName(path):
-    gesture = []
-    with open(path) as file:
-        gesture = json.load(file)
-    return gesture
-
 def load_data(split=0.9):
-    gesture = getLabelName('./datasets/hand_gesture/gesture_name.json')
-
     data = tf.io.read_file('./datasets/hand_gesture/hand_gesture.ds')
     data = tf.io.parse_tensor(data, tf.float32).numpy()
     label = tf.io.read_file('./datasets/hand_gesture/hand_gesture_label.ds')
     label = tf.io.parse_tensor(label, tf.int32).numpy()
-    label = tf.one_hot(label, len(gesture))
     ds = tf.data.Dataset.from_tensor_slices((data, label))
 
     ds = ds.shuffle(buffer_size=len(ds))
@@ -33,14 +19,14 @@ def load_data(split=0.9):
     ds_train = ds.take(splitIndex).batch(batch_size)
     ds_test = ds.skip(splitIndex).batch(batch_size)
 
-    return ds_train, ds_test, gesture
+    return ds_train, ds_test
 
-ds_train, ds_test, gesture = load_data(split=0.8)
+ds_train, ds_test = load_data(split=0.8)
 
 
 # %% train hand gesture
 # ===========================================================================
-epochs = 60
+epochs = 57
 learning_rate = 0.01
 input_shape = (None, ds_train.element_spec[0].shape[2])
 
@@ -51,13 +37,13 @@ lr_cb = tf.keras.callbacks.LearningRateScheduler(lr_decay)
 def create_model(input_shape):
     model = tf.keras.Sequential([
         layers.Input(shape=input_shape),
-        layers.LSTM(128, return_sequences=True),
-        layers.LSTM(100),
-        layers.Dense(len(gesture))
+        layers.Bidirectional(layers.LSTM(64, return_sequences=True)),
+        layers.Bidirectional(layers.LSTM(64)),
+        layers.Dense(1)
     ])
 
     opt_fn = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    loss_fn = tf.keras.losses.CategoricalCrossentropy(from_logits=True)
+    loss_fn = tf.keras.losses.BinaryCrossentropy(from_logits=True)
     model.compile(optimizer=opt_fn, 
                   loss=loss_fn, 
                   metrics=['accuracy'])
@@ -87,14 +73,11 @@ from landmark import draw_landmark, landmark_to_list, vectorize_landmark, landma
 
 
 def getLabelName(path):
-    gesture = []
     with open(path) as file:
-        gesture = json.load(file)
-    return gesture
+        return json.load(file)
 
 sequence = []
 lastFrameTime = time.time()
-gesture = getLabelName('./datasets/hand_gesture/gesture_name.json')
 pose = getLabelName('./datasets/hand_pose/pose_name.json')
 gmodel = tf.keras.models.load_model('./models/hand_gesture.h5', compile=False)
 pmodel = tf.keras.models.load_model('./models/hand_pose.h5', compile=False)
@@ -122,18 +105,20 @@ def predict(frame, key, videoCap):
             f1_landmark = landmark_to_list_norm(results.multi_hand_landmarks[0].landmark, ratio)
             f1_landmark += [dt]
             sequence.append(f1_landmark)
-            if len(sequence) > 25:
+            if len(sequence) > 20:
                 sequence = sequence[1:]
-
-            input = tf.constant([sequence])
-            index = tf.argmax(gmodel(input), axis=1).numpy()[0]
-            pred_gesture = gesture[index]
-            cv2.putText(frame, pred_gesture, (int(w/4),60), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+                input = tf.constant([sequence])
+                confidence = tf.nn.sigmoid(gmodel(input)).numpy()[0][0]
+                if confidence > 0.99:
+                    sequence.clear()
+                    print('Clicked')
+                    # cv2.putText(frame, 'Clicked', (int(w/4),60), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+        elif len(sequence) != 0:
+            sequence.clear()
 
         # if pred_pose != 'None':
         cv2.putText(frame, pred_pose, (int(w/4),30), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
 
-    fps = str(videoCap.get(cv2.CAP_PROP_FPS))
     cv2.putText(frame, str(dt), (0,10), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0,255,0), 1)
     return frame
 
